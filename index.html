@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karen's Custom Creations — Handmade Jewelry & Accessories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f8fafd;
+      --light-blue: #eef3f9;
+      --mid-blue: #b8cfe8;
+      --blue: #5b8ab5;
+      --blue-dark: #3a6491;
+      --silver: #9eafc2;
+      --silver-light: #d6e2ef;
+      --silver-dark: #6a7f96;
+      --charcoal: #1c2a36;
+      --muted: #6a7f96;
+      --border: rgba(91,138,181,0.18);
+      --shadow: rgba(58,100,145,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      cursor: pointer;
+    }
+
+    /* Cursor */
+    .cursor {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--blue);
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: opacity 0.2s;
+    }
+    .cursor-ring {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--mid-blue);
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: all 0.22s ease;
+      opacity: 0.7;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 26px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(248,250,253,0.94);
+      backdrop-filter: blur(14px);
+      padding: 16px 64px;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 24px var(--shadow);
+    }
+    .nav-logo {
+      display: flex; flex-direction: column;
+      text-decoration: none;
+    }
+    .logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+    .logo-main span { color: var(--blue); }
+    .logo-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      font-weight: 400;
+      margin-top: 3px;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; letter-spacing: 0.08em;
+      color: var(--charcoal); text-decoration: none;
+      font-weight: 400; position: relative; padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1.5px; background: var(--blue);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-shop {
+      font-size: 0.75rem; letter-spacing: 0.15em;
+      text-transform: uppercase; font-weight: 500;
+      color: var(--white); background: var(--blue);
+      text-decoration: none; padding: 11px 26px;
+      border-radius: 2px; transition: background 0.3s;
+    }
+    .nav-shop:hover { background: var(--blue-dark); }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px 72px 80px 72px;
+      position: relative; z-index: 2;
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--light-blue);
+      border: 1px solid var(--silver-light);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue-dark);
+      font-weight: 500; margin-bottom: 28px; width: fit-content;
+      opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+    .hero-pill::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5.5vw, 5.2rem);
+      font-weight: 400; line-height: 1.08;
+      color: var(--charcoal); margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--blue); }
+    .hero-desc {
+      font-size: 0.95rem; line-height: 1.85;
+      color: var(--muted); font-weight: 300;
+      max-width: 380px; margin-bottom: 52px;
+      opacity: 0; animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+    .hero-btns {
+      display: flex; gap: 16px; align-items: center;
+      opacity: 0; animation: fadeUp 0.7s ease 0.8s forwards;
+    }
+    .btn-main {
+      font-size: 0.78rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 500;
+      color: white; background: var(--blue);
+      text-decoration: none; padding: 15px 36px;
+      border-radius: 2px; transition: background 0.3s;
+    }
+    .btn-main:hover { background: var(--blue-dark); }
+    .btn-outline {
+      font-size: 0.78rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 400;
+      color: var(--blue-dark); text-decoration: none;
+      padding: 15px 28px; border: 1.5px solid var(--border);
+      border-radius: 2px; transition: all 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--blue); background: var(--light-blue); }
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 64px;
+      opacity: 0; animation: fadeUp 0.7s ease 1s forwards;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 600; color: var(--charcoal);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label {
+      font-size: 0.72rem; letter-spacing: 0.1em;
+      color: var(--muted); margin-top: 4px; font-weight: 300;
+    }
+    .stat-divider { width: 1px; background: var(--border); }
+
+    /* Hero right */
+    .hero-right {
+      background: var(--light-blue);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-right-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(91,138,181,0.13) 0%, transparent 70%);
+    }
+    .hero-illustration {
+      position: relative; z-index: 2;
+      opacity: 0; animation: fadeIn 1s ease 0.8s forwards;
+    }
+    .hero-float-card {
+      position: absolute; bottom: 80px; left: -24px;
+      background: white; padding: 20px 24px;
+      box-shadow: 0 12px 48px var(--shadow);
+      border-radius: 4px;
+      opacity: 0; animation: fadeUp 0.7s ease 1.2s forwards;
+      z-index: 10;
+    }
+    .float-card-label {
+      font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--silver-dark);
+      font-weight: 400; margin-bottom: 4px;
+    }
+    .float-card-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--charcoal); font-weight: 600;
+    }
+    .float-card-sub {
+      font-size: 0.7rem; color: var(--muted); margin-top: 2px;
+    }
+    .hero-float-badge {
+      position: absolute; top: 100px; right: -10px;
+      background: var(--blue); padding: 14px 18px;
+      border-radius: 4px;
+      opacity: 0; animation: fadeIn 0.7s ease 1.4s forwards;
+      z-index: 10;
+    }
+    .badge-emoji { font-size: 1.4rem; display: block; text-align: center; }
+    .badge-text {
+      font-size: 0.62rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.85); margin-top: 4px;
+      text-align: center; font-weight: 300;
+    }
+
+    /* Wavy divider */
+    .wave-divider { display: block; width: 100%; height: 60px; }
+
+    /* Trust bar */
+    .trust-bar {
+      background: var(--charcoal);
+      padding: 0 64px;
+      display: flex; align-items: stretch;
+    }
+    .trust-item {
+      flex: 1; display: flex; align-items: center; gap: 16px;
+      padding: 28px 0;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-item + .trust-item { padding-left: 40px; }
+    .trust-icon {
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .trust-label {
+      font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      font-weight: 400; margin-bottom: 2px;
+    }
+    .trust-val {
+      font-size: 0.88rem; color: rgba(255,255,255,0.85); font-weight: 300;
+    }
+
+    /* Section styles */
+    section { padding: 110px 64px; }
+    .sec-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--blue);
+      font-weight: 500; margin-bottom: 12px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+      font-weight: 400; line-height: 1.12; color: var(--charcoal);
+    }
+    .sec-title em { font-style: italic; color: var(--blue-dark); }
+    .sec-head {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; margin-bottom: 64px;
+    }
+    .see-all {
+      font-size: 0.75rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue-dark);
+      text-decoration: none; font-weight: 500;
+      border-bottom: 1.5px solid var(--blue-dark);
+      padding-bottom: 2px; transition: color 0.2s;
+    }
+    .see-all:hover { color: var(--blue); border-color: var(--blue); }
+
+    /* Collections */
+    .collections { background: var(--off-white); }
+    .coll-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .coll-card {
+      border-radius: 6px; overflow: hidden;
+      position: relative; cursor: pointer;
+      box-shadow: 0 4px 24px var(--shadow);
+      transition: transform 0.35s, box-shadow 0.35s;
+    }
+    .coll-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(58,100,145,0.16);
+    }
+    .coll-card:first-child {
+      grid-column: span 2;
+    }
+    .coll-img {
+      width: 100%; aspect-ratio: 1/1;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .coll-card:first-child .coll-img { aspect-ratio: 2/1.1; }
+    .coll-bg-blue { background: linear-gradient(145deg, #dce9f5 0%, #b8cfe8 100%); }
+    .coll-bg-silver { background: linear-gradient(145deg, #e8eef5 0%, #c8d5e2 100%); }
+    .coll-bg-light { background: linear-gradient(145deg, #eef4fb 0%, #d0dfed 100%); }
+    .coll-bg-soft { background: linear-gradient(145deg, #e2edf7 0%, #bdd0e6 100%); }
+    .coll-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28,42,54,0.65) 0%, transparent 55%);
+    }
+    .coll-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 24px; z-index: 2;
+    }
+    .coll-tag {
+      font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--silver-light);
+      margin-bottom: 5px; font-weight: 400;
+    }
+    .coll-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 400; color: white; line-height: 1.1;
+    }
+    .coll-card:first-child .coll-name { font-size: 1.8rem; }
+    .coll-count {
+      font-size: 0.7rem; color: rgba(255,255,255,0.5);
+      margin-top: 4px; opacity: 0; transition: opacity 0.3s;
+    }
+    .coll-card:hover .coll-count { opacity: 1; }
+    /* Illustrations in cards */
+    .card-art { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .card-art svg { width: 55%; height: auto; opacity: 0.55; }
+
+    /* Products */
+    .products { background: var(--light-blue); }
+    .product-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    }
+    .prod-card {
+      background: white; border-radius: 6px; overflow: hidden;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
+    }
+    .prod-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 40px rgba(58,100,145,0.14);
+    }
+    .prod-img {
+      aspect-ratio: 1/1;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: #f8fafd;
+    }
+    .prod-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 22px;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .prod-card:hover .prod-photo { transform: scale(1.04); }
+    .prod-bg-a { background: linear-gradient(135deg, #dce9f5, #b8cfe8); }
+    .prod-bg-b { background: linear-gradient(135deg, #e8eef5, #c8d5e2); }
+    .prod-bg-c { background: linear-gradient(135deg, #cfdded, #9fb8d0); }
+    .prod-bg-d { background: linear-gradient(135deg, #e2edf7, #bdd0e6); }
+    .prod-bg-e { background: linear-gradient(135deg, #d5e4f2, #a8c2da); }
+    .prod-bg-f { background: linear-gradient(135deg, #eaf0f8, #c5d6e8); }
+    .prod-new-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--blue); color: white;
+      font-size: 0.58rem; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 5px 11px;
+      border-radius: 100px; font-weight: 500;
+    }
+    .prod-wish {
+      position: absolute; top: 12px; right: 12px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: white; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: background 0.2s;
+    }
+    .prod-wish:hover { background: var(--light-blue); }
+    .prod-wish svg { width: 14px; height: 14px; fill: none; stroke: var(--silver-dark); stroke-width: 2; }
+    .prod-info { padding: 20px 22px 24px; }
+    .prod-cat {
+      font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--blue);
+      font-weight: 500; margin-bottom: 6px;
+    }
+    .prod-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--charcoal); margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .prod-desc {
+      font-size: 0.78rem; color: var(--muted); line-height: 1.6;
+      margin-bottom: 16px; font-weight: 300;
+    }
+    .prod-footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .prod-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--blue-dark); font-weight: 600;
+    }
+    .btn-add-sm {
+      font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 500;
+      color: white; background: var(--blue);
+      border: none; padding: 10px 20px; cursor: pointer;
+      border-radius: 2px; transition: background 0.3s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-add-sm:hover { background: var(--blue-dark); }
+
+    /* About / Story */
+    .about {
+      background: white; padding: 0;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .about-visual {
+      background: var(--light-blue);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 560px; position: relative; overflow: hidden;
+      padding: 60px;
+    }
+    .about-visual-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(91,138,181,0.1), transparent 70%);
+    }
+    .about-content {
+      padding: 100px 80px; display: flex;
+      flex-direction: column; justify-content: center;
+    }
+    .about-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem; font-style: italic; font-weight: 400;
+      line-height: 1.55; color: var(--charcoal);
+      margin-bottom: 28px; padding-left: 20px;
+      border-left: 2px solid var(--blue);
+    }
+    .about-body {
+      font-size: 0.9rem; line-height: 1.9;
+      color: var(--muted); font-weight: 300; margin-bottom: 36px;
+    }
+    .about-sig {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-style: italic;
+      color: var(--blue-dark);
+    }
+    .about-sig-sub {
+      font-size: 0.65rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--silver-dark);
+      margin-top: 4px; font-weight: 300;
+    }
+
+    /* Process */
+    .process { background: var(--charcoal); padding: 110px 64px; }
+    .process .sec-title { color: white; }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2px; margin-top: 60px;
+    }
+    .proc-step {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,207,232,0.1);
+      padding: 44px 32px;
+      transition: background 0.3s;
+    }
+    .proc-step:hover { background: rgba(91,138,181,0.08); }
+    .proc-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 400;
+      color: rgba(184,207,232,0.18); line-height: 1; margin-bottom: 20px;
+    }
+    .proc-icon { font-size: 1.6rem; margin-bottom: 16px; }
+    .proc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 400;
+      color: rgba(255,255,255,0.9); margin-bottom: 12px;
+    }
+    .proc-desc {
+      font-size: 0.8rem; line-height: 1.8;
+      color: rgba(255,255,255,0.38); font-weight: 300;
+    }
+
+    /* Testimonials */
+    .testimonials { background: var(--off-white); }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 60px;
+    }
+    .testi-card {
+      background: white; padding: 36px 30px;
+      border: 1px solid var(--border); border-radius: 6px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .testi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px var(--shadow);
+    }
+    .testi-stars { display: flex; gap: 3px; margin-bottom: 18px; }
+    .star { font-size: 0.85rem; }
+    .testi-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.98rem; font-style: italic;
+      line-height: 1.65; color: var(--charcoal); margin-bottom: 24px;
+    }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-av {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--light-blue); border: 2px solid var(--mid-blue);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--blue-dark);
+    }
+    .testi-name { font-size: 0.82rem; font-weight: 500; color: var(--charcoal); }
+    .testi-item { font-size: 0.68rem; color: var(--muted); margin-top: 2px; font-weight: 300; }
+
+    /* Custom orders */
+    .custom {
+      background: var(--light-blue);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 80px;
+      padding: 100px 80px;
+    }
+    .custom-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 400; line-height: 1.15;
+      color: var(--charcoal); margin-bottom: 20px;
+    }
+    .custom-title em { font-style: italic; color: var(--blue-dark); }
+    .custom-body {
+      font-size: 0.9rem; line-height: 1.9; color: var(--muted);
+      font-weight: 300; margin-bottom: 40px;
+    }
+    .custom-steps { display: flex; flex-direction: column; gap: 16px; }
+    .custom-step { display: flex; align-items: flex-start; gap: 16px; }
+    .cs-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--blue); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 500; flex-shrink: 0; margin-top: 2px;
+    }
+    .cs-text { font-size: 0.85rem; line-height: 1.6; color: var(--charcoal); font-weight: 300; }
+    .custom-visual {
+      background: white; border-radius: 8px;
+      padding: 50px; display: flex; align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 40px rgba(58,100,145,0.1);
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: var(--blue-dark);
+      padding: 90px 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .news-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 400;
+      color: white; line-height: 1.2; margin-bottom: 16px;
+    }
+    .news-title em { font-style: italic; color: var(--silver-light); }
+    .news-sub { font-size: 0.88rem; line-height: 1.8; color: rgba(255,255,255,0.5); font-weight: 300; }
+    .news-form { display: flex; flex-direction: column; gap: 14px; }
+    .news-input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 16px 20px; font-size: 0.88rem;
+      color: white; font-family: 'DM Sans', sans-serif;
+      font-weight: 300; outline: none;
+      border-radius: 2px; transition: border-color 0.3s;
+    }
+    .news-input::placeholder { color: rgba(255,255,255,0.3); }
+    .news-input:focus { border-color: var(--mid-blue); }
+    .news-btn {
+      background: white; border: none; padding: 16px 36px;
+      font-size: 0.75rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue-dark);
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      cursor: pointer; transition: background 0.3s;
+      border-radius: 2px; align-self: flex-start;
+    }
+    .news-btn:hover { background: var(--silver-light); }
+    .news-note { font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.05em; }
+
+    /* Footer */
+    footer {
+      background: var(--charcoal);
+      padding: 64px 64px 36px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px; margin-bottom: 56px;
+    }
+    .footer-about .logo-main { color: white; font-size: 1.2rem; }
+    .footer-about .logo-main span { color: var(--mid-blue); }
+    .footer-about .logo-sub { color: rgba(255,255,255,0.3); }
+    .footer-tagline {
+      font-size: 0.82rem; line-height: 1.8;
+      color: rgba(255,255,255,0.3); font-weight: 300;
+      margin-top: 16px; max-width: 220px;
+    }
+    .social-row { display: flex; gap: 10px; margin-top: 24px; }
+    .soc {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; display: flex; align-items: center;
+      justify-content: center; color: rgba(255,255,255,0.35);
+      text-decoration: none; font-size: 0.72rem; font-weight: 500;
+      transition: all 0.2s;
+    }
+    .soc:hover { border-color: var(--mid-blue); color: var(--mid-blue); }
+    .footer-col h4 {
+      font-size: 0.62rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--mid-blue);
+      font-weight: 500; margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      font-size: 0.82rem; color: rgba(255,255,255,0.3);
+      text-decoration: none; font-weight: 300; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: rgba(255,255,255,0.7); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px; display: flex;
+      justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.18); font-weight: 300; }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 0.72rem; color: rgba(255,255,255,0.18); text-decoration: none; transition: color 0.2s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.45); }
+
+    /* Animations */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    .reveal { opacity:0; transform:translateY(36px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+  
+    @media (max-width: 1000px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .hero, .about, .custom, .newsletter { grid-template-columns: 1fr; }
+      section { padding: 72px 24px; }
+      .product-grid, .testi-grid { grid-template-columns: repeat(2, 1fr); }
+      .coll-grid, .process-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display:none; }
+      .product-grid, .coll-grid, .process-grid, .testi-grid { grid-template-columns: 1fr; }
+      .hero-left { padding: 120px 24px 60px; }
+      .sec-head { align-items: flex-start; gap: 20px; flex-direction: column; }
+      .trust-bar { flex-direction: column; padding: 0 24px; }
+      .trust-item, .trust-item + .trust-item { padding-left: 0 !important; }
+      .footer-top, .footer-bottom { grid-template-columns: 1fr; flex-direction: column; align-items: flex-start; gap: 20px; }
+    }
+  
+    /* Cart + Checkout */
+    .cart-toggle { position: fixed; right: 22px; bottom: 22px; z-index: 2000; background: var(--blue); color: white; border: none; border-radius: 999px; padding: 14px 18px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; box-shadow: 0 12px 34px rgba(58,100,145,0.28); cursor: pointer; }
+    .cart-count { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; margin-left: 8px; padding: 0 6px; border-radius: 999px; background: white; color: var(--blue-dark); font-size: 0.72rem; font-weight: 700; }
+    .cart-overlay { position: fixed; inset: 0; background: rgba(28,42,54,0.42); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 2100; }
+    .cart-overlay.open { opacity: 1; pointer-events: auto; }
+    .cart-drawer { position: fixed; top: 0; right: 0; height: 100vh; width: min(440px, 94vw); background: white; z-index: 2200; transform: translateX(105%); transition: transform 0.28s ease; box-shadow: -16px 0 50px rgba(28,42,54,0.18); display: flex; flex-direction: column; }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-head { padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .cart-title { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: var(--charcoal); }
+    .cart-close { border: none; background: var(--light-blue); color: var(--blue-dark); width: 36px; height: 36px; border-radius: 50%; font-size: 1.25rem; cursor: pointer; }
+    .cart-items { padding: 18px 24px; overflow-y: auto; flex: 1; }
+    .cart-empty { color: var(--muted); line-height: 1.6; padding: 24px 0; font-size: 0.9rem; }
+    .cart-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .cart-item img { width: 72px; height: 72px; object-fit: cover; border-radius: 6px; background: var(--off-white); }
+    .cart-item-name { font-family: 'Playfair Display', serif; font-size: 0.96rem; color: var(--charcoal); line-height: 1.2; }
+    .cart-item-price { color: var(--blue-dark); font-weight: 600; margin-top: 4px; font-size: 0.88rem; }
+    .qty-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .qty-btn, .remove-btn { border: 1px solid var(--border); background: var(--off-white); color: var(--blue-dark); border-radius: 4px; min-width: 28px; height: 28px; cursor: pointer; font-weight: 600; }
+    .remove-btn { padding: 0 9px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cart-foot { padding: 22px 24px 26px; border-top: 1px solid var(--border); background: var(--off-white); }
+    .cart-total-row { display: flex; justify-content: space-between; align-items: center; font-size: 1rem; margin-bottom: 16px; color: var(--charcoal); }
+    .cart-total { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: var(--blue-dark); font-weight: 600; }
+    .checkout-btn, .continue-btn { width: 100%; border: none; padding: 14px 18px; border-radius: 3px; font-family: 'DM Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
+    .checkout-btn { background: var(--blue); color: white; margin-bottom: 10px; }
+    .continue-btn { background: white; color: var(--blue-dark); border: 1px solid var(--border); }
+    .checkout-panel { position: fixed; inset: 0; z-index: 2300; background: rgba(28,42,54,0.55); display: none; align-items: center; justify-content: center; padding: 20px; }
+    .checkout-panel.open { display: flex; }
+    .checkout-box { width: min(680px, 96vw); max-height: 92vh; overflow-y: auto; background: white; border-radius: 8px; box-shadow: 0 20px 70px rgba(0,0,0,0.25); padding: 28px; }
+    .checkout-box h3 { font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: 8px; color: var(--charcoal); }
+    .checkout-note { color: var(--muted); line-height: 1.65; font-size: 0.88rem; margin-bottom: 18px; }
+    .checkout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .checkout-field { display: flex; flex-direction: column; gap: 6px; }
+    .checkout-field.full { grid-column: 1 / -1; }
+    .checkout-field label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-dark); font-weight: 600; }
+    .checkout-field input, .checkout-field textarea { border: 1px solid var(--border); border-radius: 4px; padding: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--charcoal); background: var(--off-white); }
+    .checkout-field textarea { min-height: 82px; resize: vertical; }
+    .checkout-actions { display: flex; gap: 12px; margin-top: 18px; }
+    .order-summary { background: var(--light-blue); border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin: 16px 0; white-space: pre-wrap; color: var(--charcoal); font-size: 0.85rem; line-height: 1.55; }
+    @media (max-width: 640px) { .checkout-grid { grid-template-columns: 1fr; } .checkout-actions { flex-direction: column; } .cart-toggle { right: 14px; bottom: 14px; } }
+
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Nav -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="logo-main">Karen's <span>Custom</span> Creations</span>
+    <span class="logo-sub">Handmade with love</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#collections">Shop</a></li>
+    <li><a href="#about">About Karen</a></li>
+    <li><a href="#process">How It's Made</a></li>
+    <li><a href="#custom">Custom Orders</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#collections" class="nav-shop">Shop Now</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-pill">New arrivals just dropped ✨</div>
+    <h1 class="hero-title">Jewelry made<br>with <em>heart</em><br>& hands.</h1>
+    <p class="hero-desc">Every pair of earrings, every bracelet, every keychain is made just for you — with love, care, and a whole lot of creativity.</p>
+    <div class="hero-btns">
+      <a href="#collections" class="btn-main">Browse the Shop</a>
+      <a href="#custom" class="btn-outline">Custom Orders</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">500<span>+</span></div>
+        <div class="stat-label">Happy customers</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">$15<span>+</span></div>
+        <div class="stat-label">Starting price</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Handmade</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-bg"></div>
+    <div class="hero-illustration">
+      <svg width="360" height="400" viewBox="0 0 360 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Polymer clay earring pair -->
+        <ellipse cx="120" cy="160" rx="48" ry="56" fill="#b8cfe8" opacity="0.7" stroke="#5b8ab5" stroke-width="2"/>
+        <ellipse cx="120" cy="160" rx="32" ry="38" fill="#dce9f5" opacity="0.8" stroke="#5b8ab5" stroke-width="1"/>
+        <circle cx="120" cy="155" r="10" fill="#5b8ab5" opacity="0.5"/>
+        <circle cx="120" cy="92" r="6" fill="none" stroke="#5b8ab5" stroke-width="2"/>
+        <line x1="120" y1="98" x2="120" y2="104" stroke="#5b8ab5" stroke-width="2"/>
+        <ellipse cx="240" cy="160" rx="48" ry="56" fill="#b8cfe8" opacity="0.7" stroke="#5b8ab5" stroke-width="2"/>
+        <ellipse cx="240" cy="160" rx="32" ry="38" fill="#dce9f5" opacity="0.8" stroke="#5b8ab5" stroke-width="1"/>
+        <circle cx="240" cy="155" r="10" fill="#5b8ab5" opacity="0.5"/>
+        <circle cx="240" cy="92" r="6" fill="none" stroke="#5b8ab5" stroke-width="2"/>
+        <line x1="240" y1="98" x2="240" y2="104" stroke="#5b8ab5" stroke-width="2"/>
+        <!-- Resin keychain -->
+        <rect x="148" y="270" width="64" height="80" rx="12" fill="#c8d8ea" opacity="0.7" stroke="#5b8ab5" stroke-width="2"/>
+        <ellipse cx="180" cy="310" rx="20" ry="22" fill="#5b8ab5" opacity="0.3"/>
+        <circle cx="180" cy="265" r="7" fill="none" stroke="#5b8ab5" stroke-width="2"/>
+        <line x1="180" y1="258" x2="180" y2="248" stroke="#5b8ab5" stroke-width="2"/>
+        <circle cx="180" cy="244" r="10" fill="none" stroke="#5b8ab5" stroke-width="2"/>
+        <!-- Bracelet -->
+        <path d="M 80 330 Q 180 305 280 330 Q 300 340 280 360 Q 180 385 80 360 Q 60 350 80 330 Z" fill="none" stroke="#5b8ab5" stroke-width="2.5" opacity="0.6"/>
+        <circle cx="108" cy="341" r="4" fill="#5b8ab5" opacity="0.5"/>
+        <circle cx="145" cy="331" r="3.5" fill="#9eafc2" opacity="0.5"/>
+        <circle cx="180" cy="328" r="4" fill="#5b8ab5" opacity="0.5"/>
+        <circle cx="215" cy="331" r="3.5" fill="#9eafc2" opacity="0.5"/>
+        <circle cx="252" cy="341" r="4" fill="#5b8ab5" opacity="0.5"/>
+        <!-- Sparkles -->
+        <circle cx="60" cy="120" r="3" fill="#5b8ab5" opacity="0.4"/>
+        <circle cx="305" cy="100" r="2.5" fill="#5b8ab5" opacity="0.3"/>
+        <circle cx="45" cy="280" r="2" fill="#9eafc2" opacity="0.4"/>
+        <circle cx="320" cy="270" r="2.5" fill="#5b8ab5" opacity="0.3"/>
+        <path d="M 60 120 L 65 115 M 60 120 L 55 115 M 60 120 L 60 113 M 60 120 L 60 127" stroke="#5b8ab5" stroke-width="1" opacity="0.3"/>
+        <path d="M 305 100 L 309 96 M 305 100 L 301 96 M 305 100 L 305 95 M 305 100 L 305 105" stroke="#5b8ab5" stroke-width="1" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="hero-float-card">
+      <p class="float-card-label">Latest Drop</p>
+      <p class="float-card-val">Ocean Resin Set</p>
+      <p class="float-card-sub">Earrings + Keychain · $38</p>
+    </div>
+    <div class="hero-float-badge">
+      <span class="badge-emoji">💌</span>
+      <p class="badge-text">Gift wrap<br>available</p>
+    </div>
+  </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <div class="trust-icon">🤲</div>
+    <div>
+      <p class="trust-label">100% Handmade</p>
+      <p class="trust-val">Every piece made by Karen</p>
+    </div>
+  </div>
+  <div class="trust-item" style="padding-left:40px">
+    <div class="trust-icon">📦</div>
+    <div>
+      <p class="trust-label">Fast Shipping</p>
+      <p class="trust-val">Ships within 3–5 business days</p>
+    </div>
+  </div>
+  <div class="trust-item" style="padding-left:40px">
+    <div class="trust-icon">✨</div>
+    <div>
+      <p class="trust-label">Custom Orders</p>
+      <p class="trust-val">Made just for you</p>
+    </div>
+  </div>
+  <div class="trust-item" style="padding-left:40px">
+    <div class="trust-icon">💙</div>
+    <div>
+      <p class="trust-label">Made with Love</p>
+      <p class="trust-val">Each piece is one of a kind</p>
+    </div>
+  </div>
+</div>
+
+<!-- Collections -->
+<section class="collections" id="collections">
+  <div class="sec-head reveal">
+    <div>
+      <p class="sec-eyebrow">Browse by category</p>
+      <h2 class="sec-title">Shop the <em>Collections</em></h2>
+    </div>
+    <a href="#" class="see-all">View All</a>
+  </div>
+  <div class="coll-grid reveal">
+    <div class="coll-card">
+      <div class="coll-img coll-bg-blue">
+        <div class="card-art">
+          <svg viewBox="0 0 200 140" fill="none">
+            <ellipse cx="70" cy="70" rx="38" ry="46" fill="#b8cfe8" opacity="0.7" stroke="#3a6491" stroke-width="2"/>
+            <ellipse cx="70" cy="70" rx="24" ry="30" fill="#dce9f5" stroke="#3a6491" stroke-width="1"/>
+            <circle cx="70" cy="22" r="5" fill="none" stroke="#3a6491" stroke-width="2"/>
+            <line x1="70" y1="27" x2="70" y2="32" stroke="#3a6491" stroke-width="2"/>
+            <ellipse cx="140" cy="70" rx="38" ry="46" fill="#b8cfe8" opacity="0.7" stroke="#3a6491" stroke-width="2"/>
+            <ellipse cx="140" cy="70" rx="24" ry="30" fill="#dce9f5" stroke="#3a6491" stroke-width="1"/>
+            <circle cx="140" cy="22" r="5" fill="none" stroke="#3a6491" stroke-width="2"/>
+            <line x1="140" y1="27" x2="140" y2="32" stroke="#3a6491" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="coll-overlay"></div>
+        <div class="coll-info">
+          <p class="coll-tag">Polymer Clay · Resin</p>
+          <h3 class="coll-name">Earrings Collection</h3>
+          <p class="coll-count">40+ styles from $18</p>
+        </div>
+      </div>
+    </div>
+    <div class="coll-card">
+      <div class="coll-img coll-bg-silver">
+        <div class="card-art">
+          <svg viewBox="0 0 180 180" fill="none">
+            <rect x="58" y="50" width="64" height="80" rx="12" fill="#c8d8ea" opacity="0.7" stroke="#3a6491" stroke-width="2"/>
+            <ellipse cx="90" cy="90" rx="20" ry="22" fill="#5b8ab5" opacity="0.3"/>
+            <circle cx="90" cy="45" r="6" fill="none" stroke="#3a6491" stroke-width="2"/>
+            <path d="M88 39 Q90 30 92 39" stroke="#3a6491" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="coll-overlay"></div>
+        <div class="coll-info">
+          <p class="coll-tag">Resin</p>
+          <h3 class="coll-name">Keychains</h3>
+          <p class="coll-count">20+ designs from $15</p>
+        </div>
+      </div>
+    </div>
+    <div class="coll-card">
+      <div class="coll-img coll-bg-light">
+        <div class="card-art">
+          <svg viewBox="0 0 180 180" fill="none">
+            <path d="M 30 90 Q 90 65 150 90 Q 165 100 150 115 Q 90 140 30 115 Q 15 105 30 90 Z" fill="none" stroke="#3a6491" stroke-width="2.5" opacity="0.6"/>
+            <circle cx="55" cy="99" r="5" fill="#5b8ab5" opacity="0.6"/>
+            <circle cx="90" cy="93" r="5" fill="#9eafc2" opacity="0.6"/>
+            <circle cx="125" cy="99" r="5" fill="#5b8ab5" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="coll-overlay"></div>
+        <div class="coll-info">
+          <p class="coll-tag">Handcrafted</p>
+          <h3 class="coll-name">Bracelets</h3>
+          <p class="coll-count">15+ styles from $22</p>
+        </div>
+      </div>
+    </div>
+    <div class="coll-card">
+      <div class="coll-img coll-bg-soft">
+        <div class="card-art">
+          <svg viewBox="0 0 180 180" fill="none">
+            <rect x="50" y="60" width="80" height="60" rx="8" fill="#c8d8ea" opacity="0.5" stroke="#3a6491" stroke-width="2"/>
+            <rect x="62" y="72" width="56" height="36" rx="5" fill="#dce9f5" opacity="0.7" stroke="#3a6491" stroke-width="1"/>
+            <circle cx="90" cy="90" rx="12" r="10" fill="#5b8ab5" opacity="0.3"/>
+            <path d="M 50 120 Q 90 140 130 120" stroke="#3a6491" stroke-width="1.5" fill="none" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="coll-overlay"></div>
+        <div class="coll-info">
+          <p class="coll-tag">Mix & Match</p>
+          <h3 class="coll-name">Gift Sets</h3>
+          <p class="coll-count">Curated sets from $35</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="products" id="products">
+  <div class="sec-head reveal">
+    <div>
+      <p class="sec-eyebrow">Handcrafted collections</p>
+      <h2 class="sec-title">Shop <em>Available</em> Pieces</h2>
+    </div>
+    <a href="#" class="see-all">See All Products</a>
+  </div>
+  <div class="product-grid reveal">
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-new-badge">New</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_1.png" alt="Moonlight Magic - Gilded Moon Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Star Gazers Collection</p>
+        <h3 class="prod-name">Moonlight Magic - Gilded Moon Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Dark, dramatic crescent moon earrings with black polymer clay, real gold leaf, and a gleaming gold bezel frame.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$38</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_2.png" alt="Petite Gold Crescent Hoops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Star Gazers Collection</p>
+        <h3 class="prod-name">Petite Gold Crescent Hoops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Small but mighty crescent hoops with a beautifully textured gold finish and everyday celestial shine.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$26</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_3.png" alt="Shoreline Sparkle Stars">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">The Seaside Collection</p>
+        <h3 class="prod-name">Shoreline Sparkle Stars</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Sweet coastal starfish earrings made with iridescent glitter clay and real gold foil detailing.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$23</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-new-badge">Statement</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_5.png" alt="Violet Coral Pendant Necklace">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">The Seaside Collection</p>
+        <h3 class="prod-name">Violet Coral Pendant Necklace</h3>
+        <p class="prod-desc"><strong>Handcrafted Resin Necklace</strong><br>A cobalt purple resin diamond pendant with a delicate silver coral branch charm suspended inside.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$40</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-new-badge">Bestseller</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_6.png" alt="Broken Wave Heart Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">The Seaside Collection</p>
+        <h3 class="prod-name">Broken Wave Heart Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Resin Earrings</strong><br>Ocean blue resin rectangles with white wave swirls that reveal a hidden heart when worn as a pair.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$36</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_7.png" alt="Sea Glass Pineapple Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">The Seaside Collection</p>
+        <h3 class="prod-name">Sea Glass Pineapple Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Playful pineapple-shaped earrings in mint seafoam clay with chunky iridescent glitter throughout.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$23</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-new-badge">One of a Kind</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_9.png" alt="Tide Pool Treasure Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">The Seaside Collection</p>
+        <h3 class="prod-name">Tide Pool Treasure Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>A love letter to the ocean with embedded real seashells and delicate starfish topper details.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$26</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_18.png" alt="Turquoise Stone Starfish Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">The Seaside Collection</p>
+        <h3 class="prod-name">Turquoise Stone Starfish Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Textured starfish earrings finished to mimic the look and feel of natural turquoise stone.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$28</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_11.png" alt="Twilight Kite Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Faux Stones</p>
+        <h3 class="prod-name">Twilight Kite Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Cool-toned purple and blue marbled kite earrings with a glossy gemstone-like finish.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$38</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-new-badge">Loved</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_12.png" alt="Tidal Drift Kite Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Faux Stones</p>
+        <h3 class="prod-name">Tidal Drift Kite Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Seafoam, teal, cream, and real gold leaf come together in these glossy coastal kite drops.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$38</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_14.png" alt="Smoky Gold Kite Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Faux Stones</p>
+        <h3 class="prod-name">Smoky Gold Kite Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Deep brown and gold marbled kite earrings with a high-gloss finish and warm, elegant depth.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$38</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-new-badge">Seasonal</span>
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_20.png" alt="Autumn Ember Leaf Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Fall Fantasy Collection</p>
+        <h3 class="prod-name">Autumn Ember Leaf Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Warm amber and rust leaf earrings with hand-painted gold vein detailing and a UV resin shine.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$29</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        
+        <button class="prod-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <img class="prod-photo" src="images/product_21.png" alt="Patriot Star Drops">
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Seasonal Earrings</p>
+        <h3 class="prod-name">Patriot Star Drops</h3>
+        <p class="prod-desc"><strong>Handcrafted Polymer Clay Earrings</strong><br>Classic red, white, and blue star earrings, lightweight and perfect for patriotic occasions.</p>
+        <div class="prod-footer">
+          <span class="prod-price">$29</span>
+          <button class="btn-add-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- About -->
+<div class="about" id="about">
+  <div class="about-visual">
+    <div class="about-visual-bg"></div>
+    <svg width="320" height="380" viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="40" width="240" height="300" rx="8" fill="white" opacity="0.5" stroke="#b8cfe8" stroke-width="1"/>
+      <rect x="60" y="60" width="200" height="260" rx="6" fill="white" opacity="0.3" stroke="#b8cfe8" stroke-width="0.5"/>
+      <circle cx="160" cy="190" r="80" fill="none" stroke="#5b8ab5" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="160" cy="190" r="60" fill="rgba(91,138,181,0.08)" stroke="#5b8ab5" stroke-width="1" opacity="0.4"/>
+      <!-- Hands with clay -->
+      <path d="M 110 230 Q 120 250 140 255 Q 160 258 180 255 Q 200 250 210 230" stroke="#5b8ab5" stroke-width="2" fill="none" opacity="0.5"/>
+      <!-- Clay earring in center -->
+      <ellipse cx="160" cy="185" rx="30" ry="36" fill="#b8cfe8" opacity="0.6" stroke="#5b8ab5" stroke-width="2"/>
+      <ellipse cx="160" cy="185" rx="18" ry="22" fill="#dce9f5" stroke="#5b8ab5" stroke-width="1"/>
+      <circle cx="160" cy="145" r="5" fill="none" stroke="#5b8ab5" stroke-width="2"/>
+      <!-- Corner details -->
+      <path d="M40 40 L60 40 M40 40 L40 60" stroke="#5b8ab5" stroke-width="1.5" opacity="0.5"/>
+      <path d="M280 40 L260 40 M280 40 L280 60" stroke="#5b8ab5" stroke-width="1.5" opacity="0.5"/>
+      <path d="M40 340 L60 340 M40 340 L40 320" stroke="#5b8ab5" stroke-width="1.5" opacity="0.5"/>
+      <path d="M280 340 L260 340 M280 340 L280 320" stroke="#5b8ab5" stroke-width="1.5" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="about-content reveal">
+    <p class="sec-eyebrow">Meet the maker</p>
+    <blockquote class="about-quote">"I started making jewelry at my kitchen table, and I never stopped — because seeing someone light up over a piece I made is the best feeling in the world."</blockquote>
+    <p class="about-body">Hi! I'm Karen. I'm a self-taught jewelry maker with a deep love for polymer clay, resin, and finding beauty in small, everyday things.<br><br>Every earring, keychain, and bracelet I make is crafted by hand in my home studio. I put real care into every piece — from the colors I choose to the way it's packaged before it ships to you.</p>
+    <div>
+      <p class="about-sig">— Karen</p>
+      <p class="about-sig-sub">Maker & Founder, Karen's Custom Creations</p>
+    </div>
+  </div>
+</div>
+
+<!-- Process -->
+<section class="process" id="process">
+  <div class="reveal">
+    <p class="sec-eyebrow" style="color:var(--mid-blue)">Behind the scenes</p>
+    <h2 class="sec-title">How every piece<br><em style="color:var(--silver-light)">comes to life</em></h2>
+  </div>
+  <div class="process-grid reveal">
+    <div class="proc-step">
+      <div class="proc-num">01</div>
+      <div class="proc-icon">🎨</div>
+      <h3 class="proc-title">Design & Inspiration</h3>
+      <p class="proc-desc">I sketch ideas from nature, color palettes I love, and requests from customers. No two batches are ever identical.</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">02</div>
+      <div class="proc-icon">🤲</div>
+      <h3 class="proc-title">Hand-Shape & Pour</h3>
+      <p class="proc-desc">Clay is conditioned and shaped entirely by hand. Resin pieces are carefully poured and set — sometimes with flowers, glitter, or pigments mixed in.</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">03</div>
+      <div class="proc-icon">✨</div>
+      <h3 class="proc-title">Cure & Finish</h3>
+      <p class="proc-desc">Clay is oven-baked; resin is UV-cured and sanded smooth. Every piece is polished until it's just right.</p>
+    </div>
+    <div class="proc-step">
+      <div class="proc-num">04</div>
+      <div class="proc-icon">💌</div>
+      <h3 class="proc-title">Pack with Love</h3>
+      <p class="proc-desc">Each order is wrapped in tissue, tucked into a branded box, and shipped with a handwritten thank-you note.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="sec-head reveal">
+    <div>
+      <p class="sec-eyebrow">What customers say</p>
+      <h2 class="sec-title">Loved by <em>real people</em></h2>
+    </div>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+      <p class="testi-text">"I ordered a custom pair of earrings for my daughter's birthday and she cried happy tears. Karen is so talented and the communication was wonderful throughout."</p>
+      <div class="testi-author">
+        <div class="testi-av">J</div>
+        <div>
+          <p class="testi-name">Jennifer M.</p>
+          <p class="testi-item">Custom Polymer Clay Earrings</p>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+      <p class="testi-text">"The resin keychain is absolutely stunning. I love how you can see the flowers inside. It arrived so beautifully packaged — felt like opening a gift to myself."</p>
+      <div class="testi-author">
+        <div class="testi-av">T</div>
+        <div>
+          <p class="testi-name">Taylor R.</p>
+          <p class="testi-item">Floral Resin Keychain</p>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+      <p class="testi-text">"I've bought from Karen three times now and I will keep coming back. The quality is amazing for the price, and I love that each piece is truly one of a kind."</p>
+      <div class="testi-author">
+        <div class="testi-av">A</div>
+        <div>
+          <p class="testi-name">Alyssa K.</p>
+          <p class="testi-item">Bracelets & Earrings</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom Orders -->
+<div class="custom" id="custom">
+  <div class="reveal">
+    <p class="sec-eyebrow">Something special</p>
+    <h2 class="custom-title">Want something<br><em>made just for you?</em></h2>
+    <p class="custom-body">I love making custom pieces! Whether it's a specific color palette, a gift with someone's initial, or a completely original design — reach out and let's create something together.</p>
+    <div class="custom-steps">
+      <div class="custom-step">
+        <div class="cs-num">1</div>
+        <p class="cs-text"><strong>Send me a message</strong> with your idea, color preferences, and any inspiration photos.</p>
+      </div>
+      <div class="custom-step">
+        <div class="cs-num">2</div>
+        <p class="cs-text"><strong>I'll sketch and confirm</strong> the design with you before I start making anything.</p>
+      </div>
+      <div class="custom-step">
+        <div class="cs-num">3</div>
+        <p class="cs-text"><strong>Your piece is handmade</strong> and shipped within 7–10 business days with love.</p>
+      </div>
+    </div>
+    <br>
+    <a href="#contact" class="btn-main" style="display:inline-block; margin-top:8px;">Start a Custom Order</a>
+  </div>
+  <div class="custom-visual reveal">
+    <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="120" fill="none" stroke="#b8cfe8" stroke-width="1" opacity="0.4"/>
+      <circle cx="150" cy="150" r="90" fill="none" stroke="#b8cfe8" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.3"/>
+      <!-- Star / sparkle center -->
+      <circle cx="150" cy="150" r="30" fill="rgba(91,138,181,0.1)" stroke="#5b8ab5" stroke-width="1.5" opacity="0.6"/>
+      <path d="M150 110 L155 140 L185 150 L155 160 L150 190 L145 160 L115 150 L145 140 Z" fill="#5b8ab5" opacity="0.2" stroke="#5b8ab5" stroke-width="1.5"/>
+      <!-- Orbiting items -->
+      <ellipse cx="150" cy="50" rx="18" ry="22" fill="#b8cfe8" opacity="0.6" stroke="#5b8ab5" stroke-width="1.5"/>
+      <circle cx="150" cy="25" r="4" fill="none" stroke="#5b8ab5" stroke-width="1.5"/>
+      <rect x="230" y="130" width="30" height="38" rx="7" fill="#c8d8ea" opacity="0.6" stroke="#5b8ab5" stroke-width="1.5"/>
+      <path d="M 70 110 Q 150 80 230 110" stroke="#5b8ab5" stroke-width="1" fill="none" opacity="0.25" stroke-dasharray="3 5"/>
+      <!-- Bracelet at bottom -->
+      <path d="M 90 240 Q 150 220 210 240 Q 222 248 210 258 Q 150 275 90 258 Q 78 250 90 240 Z" fill="none" stroke="#5b8ab5" stroke-width="2" opacity="0.5"/>
+      <circle cx="110" cy="248" r="4" fill="#5b8ab5" opacity="0.5"/>
+      <circle cx="150" cy="241" r="4" fill="#9eafc2" opacity="0.5"/>
+      <circle cx="190" cy="248" r="4" fill="#5b8ab5" opacity="0.5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- Newsletter -->
+<div class="newsletter" id="contact">
+  <div class="reveal">
+    <h2 class="news-title">Stay in the<br><em>loop 💌</em></h2>
+    <p class="news-sub">Be the first to know about new collections, restocks, sales, and behind-the-scenes sneak peeks from the studio.</p>
+  </div>
+  <div class="news-form reveal">
+    <input type="text" class="news-input" placeholder="Your first name" />
+    <input type="email" class="news-input" placeholder="Your email address" />
+    <button class="news-btn">Join the Community</button>
+    <p class="news-note">No spam, pinky promise. Unsubscribe any time.</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-about">
+      <a href="#" class="nav-logo">
+        <span class="logo-main">Karen's <span>Custom</span> Creations</span>
+        <span class="logo-sub">Handmade with love</span>
+      </a>
+      <p class="footer-tagline">Polymer clay earrings, resin keychains, and handcrafted bracelets made just for you.</p>
+      <div class="social-row">
+        <a href="#" class="soc">Ig</a>
+        <a href="#" class="soc">Fb</a>
+        <a href="#" class="soc">Tt</a>
+        <a href="#" class="soc">Pi</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Polymer Clay Earrings</a></li>
+        <li><a href="#">Resin Earrings</a></li>
+        <li><a href="#">Resin Keychains</a></li>
+        <li><a href="#">Bracelets</a></li>
+        <li><a href="#">Gift Sets</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#">About Karen</a></li>
+        <li><a href="#">How It's Made</a></li>
+        <li><a href="#">Custom Orders</a></li>
+        <li><a href="#">Care Instructions</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Returns & Exchanges</a></li>
+        <li><a href="#">Contact Me</a></li>
+        <li><a href="#">Wholesale Inquiries</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Karen's Custom Creations. All rights reserved. Made with 💙</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  (function animateRing(){
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  // Sticky nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Stagger grid children
+  document.querySelectorAll('.coll-grid, .product-grid, .testi-grid, .process-grid').forEach(grid => {
+    [...grid.children].forEach((child, i) => {
+      child.style.transitionDelay = (i * 0.1) + 's';
+      child.classList.add('reveal');
+      obs.observe(child);
+    });
+  });
+</script>
+
+<button class="cart-toggle" id="cartToggle" type="button">Cart <span class="cart-count" id="cartCount">0</span></button>
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cart-head"><h2 class="cart-title">Your Cart</h2><button class="cart-close" id="cartClose" type="button" aria-label="Close cart">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span>Estimated total</span><span class="cart-total" id="cartTotal">$0</span></div>
+    <button class="checkout-btn" id="checkoutOpen" type="button">Checkout</button>
+    <button class="continue-btn" id="continueShopping" type="button">Continue Shopping</button>
+  </div>
+</aside>
+<div class="checkout-panel" id="checkoutPanel">
+  <div class="checkout-box">
+    <h3>Checkout</h3>
+    <p class="checkout-note">This checkout creates an order request that can be emailed to Karen. To accept online card payments directly on the website, connect this cart to Stripe, Square, PayPal, or Shopify Buy Buttons.</p>
+    <div class="order-summary" id="orderSummary"></div>
+    <form id="checkoutForm">
+      <div class="checkout-grid">
+        <div class="checkout-field"><label for="custName">Name</label><input id="custName" name="name" required></div>
+        <div class="checkout-field"><label for="custEmail">Email</label><input id="custEmail" name="email" type="email" required></div>
+        <div class="checkout-field full"><label for="custAddress">Shipping Address</label><textarea id="custAddress" name="address" required></textarea></div>
+        <div class="checkout-field full"><label for="custNotes">Notes / Custom Requests</label><textarea id="custNotes" name="notes"></textarea></div>
+      </div>
+      <div class="checkout-actions"><button class="checkout-btn" type="submit">Email Order Request</button><button class="continue-btn" id="checkoutClose" type="button">Cancel</button></div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+(function() {
+  const STORE_EMAIL = "YOUREMAIL@example.com";
+  const cartToggle = document.getElementById("cartToggle");
+  const cartCount = document.getElementById("cartCount");
+  const cartDrawer = document.getElementById("cartDrawer");
+  const cartOverlay = document.getElementById("cartOverlay");
+  const cartClose = document.getElementById("cartClose");
+  const continueShopping = document.getElementById("continueShopping");
+  const checkoutOpen = document.getElementById("checkoutOpen");
+  const checkoutPanel = document.getElementById("checkoutPanel");
+  const checkoutClose = document.getElementById("checkoutClose");
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const orderSummary = document.getElementById("orderSummary");
+  const checkoutForm = document.getElementById("checkoutForm");
+  let cart = JSON.parse(localStorage.getItem("kccCart") || "[]");
+
+  function money(value) { return "$" + Number(value || 0).toFixed(2).replace(".00", ""); }
+  function saveCart() { localStorage.setItem("kccCart", JSON.stringify(cart)); }
+  function openCart() { cartDrawer.classList.add("open"); cartOverlay.classList.add("open"); }
+  function closeCart() { cartDrawer.classList.remove("open"); cartOverlay.classList.remove("open"); }
+  function getCartTotal() { return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+  function buildOrderSummary() {
+    if (cart.length === 0) return "Your cart is empty.";
+    const lines = cart.map(item => `${item.qty} × ${item.name} — ${money(item.price * item.qty)}`);
+    lines.push("");
+    lines.push(`Estimated total: ${money(getCartTotal())}`);
+    lines.push("Shipping and tax, if applicable, will be confirmed by Karen.");
+    return lines.join("\n");
+  }
+  function renderCart() {
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    cartCount.textContent = totalQty;
+    cartTotal.textContent = money(getCartTotal());
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<p class="cart-empty">Your cart is empty. Add a piece you love and it will appear here.</p>';
+      return;
+    }
+    cartItems.innerHTML = cart.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <img src="${item.image}" alt="${item.name}">
+        <div>
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${money(item.price)} each</div>
+          <div class="qty-row">
+            <button class="qty-btn" data-action="decrease" type="button">−</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn" data-action="increase" type="button">+</button>
+            <button class="remove-btn" data-action="remove" type="button">Remove</button>
+          </div>
+        </div>
+        <strong>${money(item.price * item.qty)}</strong>
+      </div>
+    `).join("");
+  }
+  function addToCartFromCard(card) {
+    const name = card.querySelector(".prod-name")?.textContent.trim() || "Product";
+    const priceText = card.querySelector(".prod-price")?.textContent || "$0";
+    const price = Number(priceText.replace(/[^0-9.]/g, ""));
+    const image = card.querySelector(".prod-photo")?.getAttribute("src") || "";
+    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const existing = cart.find(item => item.id === id);
+    if (existing) existing.qty += 1;
+    else cart.push({ id, name, price, image, qty: 1 });
+    saveCart(); renderCart(); openCart();
+  }
+  document.querySelectorAll(".btn-add-sm").forEach(button => {
+    button.addEventListener("click", function() {
+      const card = button.closest(".prod-card");
+      if (card) addToCartFromCard(card);
+    });
+  });
+  cartItems.addEventListener("click", function(e) {
+    const button = e.target.closest("button");
+    if (!button) return;
+    const itemEl = e.target.closest(".cart-item");
+    if (!itemEl) return;
+    const id = itemEl.dataset.id;
+    const item = cart.find(product => product.id === id);
+    if (!item) return;
+    const action = button.dataset.action;
+    if (action === "increase") item.qty += 1;
+    if (action === "decrease") item.qty -= 1;
+    if (action === "remove" || item.qty <= 0) cart = cart.filter(product => product.id !== id);
+    saveCart(); renderCart();
+  });
+  function openCheckout() {
+    if (cart.length === 0) { alert("Your cart is empty."); return; }
+    orderSummary.textContent = buildOrderSummary();
+    checkoutPanel.classList.add("open");
+  }
+  function closeCheckout() { checkoutPanel.classList.remove("open"); }
+  checkoutForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const name = document.getElementById("custName").value.trim();
+    const email = document.getElementById("custEmail").value.trim();
+    const address = document.getElementById("custAddress").value.trim();
+    const notes = document.getElementById("custNotes").value.trim();
+    const subject = encodeURIComponent("New order request from Karen's Custom Creations");
+    const body = encodeURIComponent(`Customer Name: ${name}\nCustomer Email: ${email}\n\nShipping Address:\n${address}\n\nOrder:\n${buildOrderSummary()}\n\nNotes:\n${notes || "None"}`);
+    window.location.href = `mailto:${STORE_EMAIL}?subject=${subject}&body=${body}`;
+  });
+  cartToggle.addEventListener("click", openCart);
+  cartClose.addEventListener("click", closeCart);
+  cartOverlay.addEventListener("click", closeCart);
+  continueShopping.addEventListener("click", closeCart);
+  checkoutOpen.addEventListener("click", openCheckout);
+  checkoutClose.addEventListener("click", closeCheckout);
+  renderCart();
+})();
+</script>
+
+</body>
+</html>
+          
