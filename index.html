@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Karen's Custom Creations | Handcrafted Jewelry Boutique</title>
+  <meta name="description" content="Shop handcrafted earrings, necklaces, and coastal-inspired jewelry from Karen's Custom Creations.">
+  <meta name="theme-color" content="#B3D5E3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!--
+    HERO PHOTO EDIT NOTE:
+    To change the large homepage hero photo, replace this file:
+    images/hero-jewelry-studio.jpg
+
+    Best size: 1800px wide or larger, horizontal photo.
+    Good options: a beautiful jewelry flat lay, Karen's work table, or a close-up of finished pieces.
+  -->
+  <style>
+    :root {
+      --hero-photo: url("images/hero-jewelry-studio.jpg");
+      --ink: #242223;
+      --soft-ink: #5c5759;
+      --muted: #7a7476;
+      --line: #e9dde1;
+      --paper: #fffdfc;
+      --mist: #f8f3f1;
+      --shell: #fff3f6;
+      --sea: #edf8f6;
+      --pearl: #fff9f7;
+      --blush: #f9e5eb;
+      --champagne: #f8eedc;
+      --rose: #b86475;
+      --rose-dark: #8f4354;
+      --gold: #b78944;
+      --shadow: 0 18px 42px rgba(36, 34, 35, .12);
+      --soft-shadow: 0 14px 34px rgba(92, 73, 79, .11);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.82) 0%, rgba(255,247,249,.74) 42%, rgba(240,249,247,.8) 100%),
+        linear-gradient(180deg, var(--paper) 0%, var(--mist) 44%, var(--paper) 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        linear-gradient(115deg, rgba(183,137,68,.08), transparent 34%),
+        linear-gradient(290deg, rgba(184,100,117,.08), transparent 42%),
+        repeating-linear-gradient(90deg, rgba(36,34,35,.025) 0 1px, transparent 1px 72px);
+    }
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .eyebrow {
+      color: var(--rose-dark);
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .section-title {
+      margin: 8px 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.03;
+    }
+    .section-copy {
+      color: var(--soft-ink);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 720px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border: 1px solid var(--ink);
+      border-radius: var(--radius);
+      padding: 0 18px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 800;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(36,34,35,.16); }
+    .btn.secondary { background: #fff; color: var(--ink); }
+    .btn.rose { border-color: var(--rose); background: var(--rose); }
+    .btn.small { min-height: 38px; padding: 0 12px; font-size: .9rem; }
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      display: inline-grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .topbar {
+      background: var(--ink);
+      color: #fff;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: .88rem;
+    }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand { display: grid; gap: 2px; }
+    .brand strong {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+    }
+    .brand span { color: var(--muted); font-size: .78rem; font-weight: 700; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 22px; color: var(--soft-ink); font-size: .94rem; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .cart-button { position: relative; }
+    .count-badge {
+      position: absolute;
+      right: -7px;
+      top: -7px;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--rose);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: .72rem;
+      font-weight: 900;
+      padding: 0 5px;
+    }
+
+    .hero {
+      min-height: 76vh;
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.72) 42%, rgba(255,255,255,.18) 100%),
+        var(--hero-photo) center / cover no-repeat,
+        var(--shell);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-inner { padding: 86px 0 74px; }
+    .hero-content { max-width: 660px; }
+    h1 {
+      margin: 10px 0 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 7vw, 5.9rem);
+      line-height: .96;
+      font-weight: 500;
+    }
+    .hero p {
+      color: var(--soft-ink);
+      font-size: clamp(1.03rem, 2vw, 1.22rem);
+      line-height: 1.65;
+      margin: 0 0 24px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .trust-strip {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.82), rgba(255,247,249,.78), rgba(238,248,246,.82)),
+        var(--mist);
+      border-bottom: 1px solid var(--line);
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+    }
+    .trust-item {
+      padding: 20px 18px;
+      border-left: 1px solid var(--line);
+    }
+    .trust-item:last-child { border-right: 1px solid var(--line); }
+    .trust-item strong { display: block; margin-bottom: 4px; }
+    .trust-item span { color: var(--muted); font-size: .9rem; line-height: 1.5; }
+
+    section { padding: 78px 0; }
+    main > section:not(.hero):not(.collection-band) {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,253,252,.9)),
+        linear-gradient(135deg, rgba(255,243,246,.74), rgba(237,248,246,.58));
+    }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+    .story-photo {
+      min-height: 420px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(255,255,255,.18), rgba(255,255,255,.18)),
+        url("images/about-karen-worktable.jpg") center / cover no-repeat,
+        var(--sea);
+      box-shadow: var(--shadow);
+    }
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .feature {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 10px 26px rgba(92,73,79,.07);
+    }
+    .feature strong { display: block; margin-bottom: 6px; }
+    .feature span { color: var(--muted); font-size: .92rem; line-height: 1.55; }
+
+    .shop-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 170px;
+      gap: 10px;
+      min-width: min(100%, 500px);
+    }
+    .field {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.88);
+      padding: 0 13px;
+      color: var(--ink);
+      outline: none;
+    }
+    textarea.field { padding-top: 12px; min-height: 130px; resize: vertical; }
+    .field:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(184,100,117,.12); }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .product-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: rgba(255,255,255,.92);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      box-shadow: var(--soft-shadow);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .product-card:hover {
+      border-color: rgba(184,100,117,.34);
+      box-shadow: 0 22px 44px rgba(92,73,79,.16);
+      transform: translateY(-2px);
+    }
+    .photo {
+      position: relative;
+      aspect-ratio: 1 / 1.08;
+      background:
+        linear-gradient(135deg, rgba(255,243,246,.92), rgba(237,248,246,.86)),
+        linear-gradient(180deg, var(--shell), var(--sea));
+      overflow: hidden;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .28s ease;
+    }
+    .photo-open {
+      position: absolute;
+      inset: 0;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      z-index: 1;
+    }
+    .product-card:hover .photo img { transform: scale(1.04); }
+    .photo.missing-photo::after {
+      content: attr(data-photo-label);
+      position: absolute;
+      inset: 16px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--soft-ink);
+      border: 1px dashed rgba(36,34,35,.24);
+      border-radius: var(--radius);
+      padding: 14px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .badge {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      z-index: 2;
+      background: #fff;
+      color: var(--rose-dark);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: .72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .favorite {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.94);
+      border-radius: 999px;
+      width: 38px;
+      height: 38px;
+      font-size: 1.05rem;
+      color: var(--rose-dark);
+      z-index: 3;
+    }
+    .favorite.active { background: var(--rose); border-color: var(--rose); color: #fff; }
+    .product-body {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      flex: 1;
+    }
+    .product-meta { color: var(--muted); font-size: .78rem; font-weight: 800; text-transform: uppercase; }
+    .product-title { margin: 0; font-size: 1.03rem; line-height: 1.3; }
+    .product-desc { margin: 0; color: var(--soft-ink); font-size: .9rem; line-height: 1.55; }
+    .product-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .price { font-weight: 900; font-size: 1.05rem; }
+    .stock { color: var(--muted); font-size: .8rem; }
+    .empty {
+      grid-column: 1 / -1;
+      background: rgba(255,255,255,.78);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      color: var(--soft-ink);
+    }
+
+    .collection-band {
+      background:
+        linear-gradient(135deg, rgba(255,245,238,.9), rgba(255,243,246,.78) 48%, rgba(237,248,246,.82)),
+        var(--mist);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .collection {
+      min-height: 260px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      align-items: end;
+      padding: 22px;
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(36,34,35,.08), rgba(36,34,35,.7)),
+        var(--image) center / cover no-repeat,
+        linear-gradient(135deg, var(--rose), var(--gold));
+      box-shadow: var(--soft-shadow);
+    }
+    .collection h3 { margin: 0 0 8px; font-family: Georgia, "Times New Roman", serif; font-size: 1.75rem; }
+    .collection p { margin: 0; line-height: 1.55; max-width: 320px; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .info-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 12px 30px rgba(92,73,79,.08);
+    }
+    .info-card h3 { margin: 0 0 10px; font-size: 1.15rem; }
+    .info-card p { margin: 0; color: var(--soft-ink); line-height: 1.65; }
+    details {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+    summary { cursor: pointer; font-weight: 900; }
+    details p { color: var(--soft-ink); line-height: 1.65; margin: 12px 0 0; }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 36px;
+      align-items: start;
+    }
+    .contact-form {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,249,247,.86)),
+        var(--mist);
+      box-shadow: var(--soft-shadow);
+    }
+    .fine-print { color: var(--muted); font-size: .83rem; line-height: 1.55; }
+    footer {
+      background: var(--ink);
+      color: #fff;
+      padding: 40px 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    footer p { color: rgba(255,255,255,.72); margin: 8px 0 0; line-height: 1.55; }
+    .footer-links { display: flex; gap: 18px; color: rgba(255,255,255,.82); font-size: .92rem; }
+
+    .drawer-backdrop, .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(36,34,35,.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+      z-index: 90;
+    }
+    .drawer-backdrop.open, .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(460px, 100%);
+      height: 100dvh;
+      background: #fff;
+      box-shadow: -20px 0 42px rgba(36,34,35,.16);
+      transform: translateX(102%);
+      transition: transform .24s ease;
+      z-index: 100;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .drawer-head, .drawer-foot {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .drawer-foot {
+      display: grid;
+      border-top: 1px solid var(--line);
+      border-bottom: 0;
+    }
+    .cart-items { padding: 12px 18px; overflow: auto; }
+    .cart-line {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+    }
+    .cart-line img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      background: var(--mist);
+    }
+    .qty {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .qty button {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      background: #fff;
+      font-weight: 900;
+    }
+    .qty span {
+      min-width: 30px;
+      text-align: center;
+      font-weight: 800;
+    }
+    .totals { display: grid; gap: 8px; }
+    .total-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .total-row.grand { font-size: 1.15rem; font-weight: 900; padding-top: 8px; border-top: 1px solid var(--line); }
+    #paypal-button-container { min-height: 48px; }
+    .checkout-note { color: var(--muted); font-size: .82rem; line-height: 1.45; margin: 0; }
+
+    .modal {
+      position: fixed;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -48%) scale(.98);
+      width: min(920px, calc(100% - 28px));
+      max-height: calc(100dvh - 28px);
+      overflow: auto;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index: 110;
+    }
+    .modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr .85fr;
+      gap: 22px;
+      padding: 22px;
+    }
+    .modal-photo {
+      aspect-ratio: 1 / 1;
+      background: var(--mist);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .modal-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-body { display: grid; gap: 12px; align-content: start; }
+    .close-modal { position: absolute; top: 12px; right: 12px; z-index: 2; }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .trust-grid, .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .split, .contact-wrap, .modal-grid { grid-template-columns: 1fr; }
+      .feature-list, .collection-grid, .info-grid { grid-template-columns: 1fr; }
+      .shop-head { grid-template-columns: 1fr; }
+      .filters { min-width: 0; }
+    }
+    @media (max-width: 640px) {
+      .container { width: min(100% - 24px, var(--max)); }
+      section { padding: 56px 0; }
+      .hero { min-height: 72vh; align-items: center; }
+      .hero-inner { padding: 62px 0; }
+      .hero-actions .btn { width: 100%; }
+      .trust-grid, .product-grid, .filters { grid-template-columns: 1fr; }
+      .trust-item { border-left: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .cart-line { grid-template-columns: 64px 1fr; }
+      .cart-line .price { grid-column: 2; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-links { flex-wrap: wrap; }
+    }
+
+
+    /* =========================================================
+       LUXURY SEA GLASS STYLE UPDATE
+       Background color requested: #B3D5E3
+       This section intentionally overrides the base style above
+       to match the soft coastal boutique reference image.
+       ========================================================= */
+    :root {
+      --sea-glass-bg: #B3D5E3;
+      --sea-glass-light: #dceff6;
+      --sea-glass-pale: #edf8fb;
+      --coastal-ink: #18232b;
+      --coastal-muted: #5e6b73;
+      --coastal-line: rgba(89, 125, 142, .23);
+      --boutique-gold: #bd8f32;
+      --boutique-gold-dark: #9d7322;
+      --card-shadow: 0 14px 34px rgba(31, 68, 85, .13);
+    }
+    body {
+      color: var(--coastal-ink);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(255,255,255,.72), transparent 32%),
+        radial-gradient(circle at 92% 2%, rgba(255,255,255,.52), transparent 30%),
+        linear-gradient(180deg, #dff2f8 0%, var(--sea-glass-bg) 46%, #d8edf4 100%);
+      font-family: 'Montserrat', Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    body::before {
+      background:
+        repeating-linear-gradient(135deg, rgba(255,255,255,.12) 0 1px, transparent 1px 18px),
+        radial-gradient(circle at bottom left, rgba(255,255,255,.36), transparent 40%);
+      opacity: .75;
+    }
+    .container { width: min(1440px, calc(100% - 56px)); }
+    .luxury-topbar {
+      background: rgba(221, 240, 247, .86);
+      color: #21333d;
+      border-bottom: 1px solid var(--coastal-line);
+      padding: 0;
+      font-size: .78rem;
+      letter-spacing: .045em;
+      text-transform: uppercase;
+    }
+    .topbar-inner { min-height: 34px; display:flex; align-items:center; justify-content:space-between; gap: 18px; }
+    .topbar-left, .topbar-right { display:flex; align-items:center; gap: 22px; flex-wrap:wrap; }
+    .topbar-left span::first-letter { color: var(--boutique-gold); }
+    .topbar-right a { color: #21333d; opacity:.85; }
+    .site-header {
+      background: rgba(226, 242, 248, .78);
+      border-bottom: 1px solid var(--coastal-line);
+      box-shadow: 0 8px 26px rgba(31, 68, 85, .05);
+      backdrop-filter: blur(18px);
+    }
+    .nav { min-height: 118px; }
+    .luxury-logo {
+      min-width: 260px;
+      display:grid;
+      grid-template-columns: 58px 1fr;
+      column-gap: 10px;
+      align-items:center;
+    }
+    .logo-mark {
+      grid-row: 1 / span 3;
+      width: 54px;
+      height: 54px;
+      display:grid;
+      place-items:center;
+      color: var(--boutique-gold);
+      border: 1px solid rgba(189,143,50,.32);
+      border-radius: 999px;
+      font-size: 1.35rem;
+      background: rgba(255,255,255,.32);
+    }
+    .brand strong { display:grid; gap:0; line-height:1; }
+    .script-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.1rem;
+      font-weight: 400;
+      color: var(--boutique-gold);
+      letter-spacing: .02em;
+    }
+    .block-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      font-size: 1.15rem;
+      color: var(--coastal-ink);
+      margin-top: -6px;
+    }
+    .tagline-line {
+      grid-column: 2;
+      color: var(--coastal-ink) !important;
+      opacity:.82;
+      font-size: .72rem !important;
+      letter-spacing: .18em;
+      margin-top: 4px;
+    }
+    .nav-links { gap: 34px; font-size: .82rem; text-transform: uppercase; letter-spacing:.05em; color: var(--coastal-ink); }
+    .nav-links a:first-child { color: var(--boutique-gold-dark); border-bottom: 2px solid var(--boutique-gold); padding-bottom: 6px; }
+    .icon-btn {
+      border: 0;
+      background: transparent;
+      width: 44px;
+      height: 44px;
+      font-size: 1.55rem;
+      border-radius: 999px;
+    }
+    .cart-button { font-size: 1.25rem; }
+    .count-badge { background: var(--boutique-gold); top: 2px; right: 0; }
+    .luxury-hero {
+      min-height: 500px;
+      background:
+        linear-gradient(90deg, rgba(211,234,243,.88) 0%, rgba(230,246,251,.86) 45%, rgba(179,213,227,.88) 100%),
+        var(--sea-glass-bg);
+      overflow: hidden;
+      border-bottom: 1px solid var(--coastal-line);
+    }
+    .luxury-hero-inner {
+      min-height: 500px;
+      display:grid;
+      grid-template-columns: 44% 56%;
+      align-items:center;
+      padding: 0;
+    }
+    .luxury-hero-copy { max-width: 620px; padding: 66px 0 64px; }
+    .eyebrow { color: var(--boutique-gold-dark); letter-spacing:.16em; font-weight: 500; font-family:'Cormorant Garamond', Georgia, serif; font-size:1.05rem; }
+    h1, .section-title { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--coastal-ink); font-weight: 500; }
+    .luxury-hero h1 { font-size: clamp(3.4rem, 6.2vw, 5.7rem); line-height:.9; letter-spacing:-.03em; }
+    .luxury-hero h1 span { display:block; font-family:'Great Vibes', cursive; color: var(--boutique-gold); font-size: .76em; font-weight:400; letter-spacing:0; margin-top: 4px; }
+    .hero-divider { color: var(--boutique-gold); font-size:1.1rem; margin: -2px 0 18px 110px; }
+    .luxury-hero p { max-width: 520px; font-size:1rem; color:#263942; }
+    .btn { border-radius: 2px; text-transform: uppercase; letter-spacing:.06em; font-size:.82rem; min-height:46px; }
+    .btn.rose { background: var(--boutique-gold); border-color: var(--boutique-gold); color:#fff; }
+    .btn.secondary { background: transparent; border-color: transparent; color: var(--coastal-ink); }
+    .hero-art {
+      min-height: 500px;
+      width: calc(100% + 80px);
+      justify-self:end;
+      background:
+        linear-gradient(90deg, rgba(179,213,227,.18), rgba(179,213,227,0) 25%),
+        var(--hero-photo) center / cover no-repeat,
+        radial-gradient(circle at 68% 45%, rgba(255,255,255,.8) 0 12%, transparent 13%),
+        linear-gradient(135deg, #e4f4f8, #b3d5e3);
+      border-left: 1px solid rgba(255,255,255,.45);
+      box-shadow: inset 36px 0 60px rgba(211,234,243,.72);
+    }
+    .trust-strip { background: rgba(224, 242, 248, .88); border-top:1px solid rgba(255,255,255,.55); border-bottom:1px solid var(--coastal-line); }
+    .trust-grid { grid-template-columns: repeat(4, 1fr); }
+    .trust-item { display:grid; grid-template-columns: 54px 1fr; align-items:center; gap:10px; padding: 20px 24px; border-left:1px solid var(--coastal-line); }
+    .trust-icon { grid-row: 1 / span 2; color:#546976; font-size:2rem; line-height:1; }
+    .trust-item strong { text-transform: uppercase; font-size:.82rem; letter-spacing:.06em; margin:0; }
+    .trust-item span:not(.trust-icon) { color:#4d5c64; font-size:.86rem; }
+    main > section:not(.hero):not(.collection-band) {
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,.75), transparent 42%),
+        linear-gradient(180deg, #e7f5fa 0%, #d6ebf3 100%);
+    }
+    section { padding: 54px 0; }
+    .shop-head { grid-template-columns: 1fr auto; align-items:center; text-align:center; margin-bottom: 26px; }
+    .shop-head > div:first-child { grid-column: 1 / -1; }
+    .shop-head .section-copy { display:none; }
+    .section-title { text-transform: uppercase; font-size: clamp(2rem, 3.2vw, 2.9rem); letter-spacing:.03em; margin-bottom: 2px; }
+    .shop-head .section-title::after { content:'— ✧ —'; display:block; color:var(--boutique-gold); font-size:1rem; letter-spacing:.08em; margin-top:4px; }
+    .filters { grid-column: 1 / -1; justify-self:stretch; display:flex; justify-content:flex-end; gap: 12px; min-width:0; margin-top: 8px; }
+    .field { min-height: 38px; border-radius:2px; background: rgba(255,255,255,.78); border-color: var(--coastal-line); }
+    #categoryFilter { width: 180px; }
+    #searchInput { max-width: 280px; }
+    .product-grid { grid-template-columns: repeat(6, 1fr); gap: 16px; }
+    .product-card { border-radius: 8px; background: rgba(255,255,255,.9); border:1px solid rgba(255,255,255,.68); box-shadow: var(--card-shadow); }
+    .photo { aspect-ratio: 1.25 / 1; background: linear-gradient(135deg, #eef7fa, #ffffff); }
+    .photo img { object-fit: cover; }
+    .product-body { padding: 12px 14px; gap: 6px; }
+    .product-meta, .product-desc, .stock { display:none; }
+    .product-title { font-size:.86rem; font-weight:700; min-height: 38px; }
+    .price { color: var(--boutique-gold-dark); font-size:.9rem; }
+    .product-foot { align-items:center; }
+    .product-foot .btn { min-height:34px; padding:0 10px; font-size:.68rem; }
+    .badge { background:rgba(255,255,255,.96); color:var(--boutique-gold-dark); border-color:rgba(189,143,50,.28); }
+    .favorite { background:rgba(255,255,255,.9); color:#52626a; border:0; }
+    .collection-band { background: linear-gradient(180deg, #d8eef6, #c7e2eb); border-color: var(--coastal-line); }
+    .site-footer { background:#22343d; }
+    .contact-wrap, .split, .info-grid, .feature-list, details, .contact-form, .info-card, .feature { border-color: var(--coastal-line); }
+    @media (max-width: 1180px) { .product-grid { grid-template-columns: repeat(3, 1fr); } .nav-links { gap: 16px; } }
+    @media (max-width: 760px) {
+      .topbar-inner, .topbar-left, .topbar-right { justify-content:center; }
+      .nav { min-height:auto; padding: 16px 0; }
+      .luxury-logo { min-width: 0; grid-template-columns: 42px 1fr; }
+      .logo-mark { width:38px; height:38px; }
+      .script-name { font-size: 2.2rem; }
+      .block-name { font-size:.85rem; }
+      .luxury-hero-inner { grid-template-columns: 1fr; }
+      .hero-art { width:100%; min-height: 290px; order:-1; box-shadow: inset 0 -24px 50px rgba(211,234,243,.7); }
+      .luxury-hero-copy { padding: 34px 0 46px; text-align:center; }
+      .hero-divider { margin-left:0; }
+      .hero-actions { justify-content:center; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .filters { justify-content:stretch; flex-direction:column; }
+      #searchInput, #categoryFilter { max-width:none; width:100%; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="topbar luxury-topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-left"><span>✧ Handmade in Michigan</span><span>✦ One-of-a-kind jewelry</span><span>✦ Made with love</span></div>
+      <div class="topbar-right"><span>🚚 Free U.S. Shipping on Orders $75+</span><a href="#contact">Contact</a><a href="#shop">Shop</a></div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand luxury-logo" href="#top" aria-label="Karen's Custom Creations home">
+        <span class="logo-mark" aria-hidden="true">☼</span>
+        <strong><span class="script-name">Karen's</span><span class="block-name">Custom Creations</span></strong>
+        <span class="tagline-line">— Handmade Jewelry —</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#shop">Shop</a>
+        <a href="#collections">Collections</a>
+        <a href="#about">About Karen</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="favoritesToggle" type="button" title="Show favorites" aria-label="Show favorites">♡</button>
+        <button class="icon-btn cart-button" id="cartToggle" type="button" title="Open cart" aria-label="Open cart">
+          🛍 <span class="count-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero luxury-hero" aria-label="Karen's Custom Creations hero">
+      <div class="container hero-inner luxury-hero-inner">
+        <div class="hero-content luxury-hero-copy">
+          <div class="eyebrow">Handmade with passion</div>
+          <h1>Jewelry Inspired <span>by Nature &amp; the Sea</span></h1>
+          <div class="hero-divider">— ✧ —</div>
+          <p>Every piece is handcrafted with care using quality materials to create unique jewelry you'll love to wear.</p>
+          <div class="hero-actions">
+            <a class="btn rose" href="#shop">Shop the Collection ›</a>
+            <a class="btn secondary" href="#shop">View New Arrivals ›</a>
+          </div>
+        </div>
+        <!-- HERO IMAGE EDIT NOTE:
+             Replace images/hero-jewelry-studio.jpg with a wide jewelry photo to match the hero mockup.
+             Best size: 1800px wide or larger, landscape orientation. -->
+        <div class="hero-art" role="img" aria-label="Handcrafted jewelry inspired by the sea"></div>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="container trust-grid">
+        <div class="trust-item"><span class="trust-icon">♡</span><strong>Handmade</strong><span>With care &amp; attention to every detail</span></div>
+        <div class="trust-item"><span class="trust-icon">◇</span><strong>Quality Materials</strong><span>Hypoallergenic &amp; durable components</span></div>
+        <div class="trust-item"><span class="trust-icon">🚚</span><strong>Fast Shipping</strong><span>Carefully packaged &amp; shipped with love</span></div>
+        <div class="trust-item"><span class="trust-icon">🎁</span><strong>Perfect Gift</strong><span>Beautifully packaged &amp; gift ready</span></div>
+      </div>
+    </div>
+
+    <section id="shop">
+      <div class="container">
+        <div class="shop-head">
+          <div>
+            <div class="eyebrow">Shop the collection</div>
+            <h2 class="section-title">Shop The Collection</h2>
+            <p class="section-copy">Browse available pieces, save favorites, and check out once with your full order.</p>
+          </div>
+          <div class="filters" aria-label="Product filters">
+            <input class="field" id="searchInput" type="search" placeholder="Search earrings, necklace, coastal...">
+            <select class="field" id="categoryFilter" aria-label="Filter by category">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section class="collection-band" id="collections">
+      <div class="container">
+        <div class="eyebrow">Featured collections</div>
+        <h2 class="section-title">Designed for the way you wear jewelry.</h2>
+        <div class="collection-grid">
+          <a class="collection" href="#shop" style="--image:url('images/collection-coastal.jpg')" data-collection="Coastal Sparkle">
+            <div><h3>Coastal Sparkle</h3><p>Sea glass tones, starfish details, and beach-day light.</p></div>
+          </a>
+          <a class="collection" href="#shop" style="--image:url('images/collection-gold.jpg')" data-collection="Gold Glow">
+            <div><h3>Gold Glow</h3><p>Warm metallic accents that dress up beautifully.</p></div>
+          </a>
+          <a class="collection" href="#shop" style="--image:url('images/collection-gifts.jpg')" data-collection="Giftable Finds">
+            <div><h3>Giftable Finds</h3><p>Easy-to-love pieces for birthdays, holidays, and thank-yous.</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container split">
+        <div>
+          <div class="eyebrow">Meet Karen</div>
+          <h2 class="section-title">Made with care, chosen with intention.</h2>
+          <p class="section-copy">Karen's Custom Creations is a handmade jewelry boutique built around pieces that feel warm, feminine, and personal. Each item is selected, styled, or created with attention to color, comfort, and the joy of finding something that feels just right.</p>
+          <div class="feature-list">
+            <div class="feature"><strong>Small batches</strong><span>Inventory stays special and easy to refresh.</span></div>
+            <div class="feature"><strong>Personal service</strong><span>Questions and custom requests are welcome.</span></div>
+            <div class="feature"><strong>Ready to gift</strong><span>Pieces arrive neatly packed and thoughtfully presented.</span></div>
+          </div>
+        </div>
+        <!--
+          ABOUT PHOTO EDIT NOTE:
+          Replace images/about-karen-worktable.jpg with a photo of Karen, a jewelry worktable,
+          or a close-up of your handmade process.
+        -->
+        <div class="story-photo" role="img" aria-label="Karen's jewelry worktable"></div>
+      </div>
+    </section>
+
+    <section class="collection-band" id="shipping">
+      <div class="container">
+        <div class="eyebrow">Shop with confidence</div>
+        <h2 class="section-title">Simple ordering, thoughtful shipping.</h2>
+        <div class="info-grid">
+          <div class="info-card"><h3>Shipping</h3><p>Orders ship within 3 to 5 business days unless a custom timeline is discussed. Free U.S. shipping applies to orders of $75 or more.</p></div>
+          <div class="info-card"><h3>Returns</h3><p>If something arrives damaged or incorrect, reach out within 7 days so it can be made right. Custom pieces may have different return terms.</p></div>
+          <div class="info-card"><h3>Custom Requests</h3><p>See something you love but want a different color or style? Send a note and Karen will let you know what is possible.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="eyebrow">FAQ</div>
+        <h2 class="section-title">Before you order</h2>
+        <details open>
+          <summary>How does checkout work?</summary>
+          <p>Add all items to your cart, then use the PayPal checkout button. PayPal processes one payment for the full order and collects the customer's payment and shipping details.</p>
+        </details>
+        <details>
+          <summary>Do customers need a PayPal account?</summary>
+          <p>PayPal usually allows eligible debit and credit card checkout depending on the customer's location and PayPal settings.</p>
+        </details>
+        <details>
+          <summary>Can I request a custom piece?</summary>
+          <p>Yes. Use the contact form and describe the style, color, and occasion. Karen can confirm availability and timing.</p>
+        </details>
+        <details>
+          <summary>How do I care for my jewelry?</summary>
+          <p>Keep pieces dry, store them separately, and avoid perfumes, lotions, and harsh cleaners. A soft cloth is best for gentle polishing.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-wrap">
+        <div>
+          <div class="eyebrow">Contact</div>
+          <h2 class="section-title">Questions before you order?</h2>
+          <p class="section-copy">Send a message about custom requests, gift ideas, product availability, or shipping. The form is ready for Netlify Forms.</p>
+          <p class="fine-print">Launch note: In Netlify, confirm Forms are enabled for this site. You can also replace this form with your preferred email or contact service later.</p>
+        </div>
+        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><label>Do not fill this out: <input name="bot-field"></label></p>
+          <input class="field" name="name" type="text" placeholder="Your name" required>
+          <input class="field" name="email" type="email" placeholder="Your email" required>
+          <input class="field" name="subject" type="text" placeholder="Subject">
+          <textarea class="field" name="message" placeholder="How can I help?" required></textarea>
+          <button class="btn rose" type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <strong>Karen's Custom Creations</strong>
+        <p>Handcrafted jewelry with a boutique feel. Built for browsing, gifting, and easy PayPal checkout.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#shop">Shop</a>
+        <a href="#shipping">Shipping</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-head">
+      <strong>Your Cart</strong>
+      <button class="icon-btn" id="closeCart" type="button" aria-label="Close cart">X</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="drawer-foot">
+      <div class="totals">
+        <div class="total-row"><span>Subtotal</span><strong id="subtotalAmount">$0.00</strong></div>
+        <div class="total-row"><span>Shipping</span><strong id="shippingAmount">$0.00</strong></div>
+        <div class="total-row grand"><span>Total</span><strong id="grandTotalAmount">$0.00</strong></div>
+      </div>
+      <div id="paypal-button-container"></div>
+      <p class="checkout-note">PayPal will collect payment and shipping details. Review order details in your PayPal Business account after purchase.</p>
+    </div>
+  </aside>
+
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-label="Product details">
+    <button class="icon-btn close-modal" id="closeModal" type="button" aria-label="Close product details">X</button>
+    <div class="modal-grid" id="modalContent"></div>
+  </div>
+
+  <script>
+    /*
+      PAYPAL EDIT NOTE:
+      The PayPal Client ID is safe to show in website code.
+      If you regenerate your PayPal app later, replace the value below.
+      Never paste your PayPal Secret into this file.
+    */
+    const PAYPAL_CLIENT_ID = "AVR_x1GVEvkeBuI0IFnt5I0w-DVVkH62_d6XbeM8vspS_g8f13b2G0Hx5f8dKucv0WzUaOkc3VU0wNbu";
+    const STORE_NAME = "Karen's Custom Creations";
+    const CURRENCY = "USD";
+    const FREE_SHIPPING_AT = 75;
+    const STANDARD_SHIPPING = 5.95;
+
+    /*
+      PRODUCT AND PHOTO EDIT NOTES:
+      This is the main section you will edit when adding or changing jewelry.
+
+      To change a product photo:
+      1. Put the new photo file inside the images folder.
+      2. Change the image value below, for example:
+         image: "images/my-new-earrings.jpg"
+      3. Use JPG or PNG. Best product photo size: square, 1200px by 1200px.
+
+      To add another product:
+      1. Copy one full product block from { id: ... } through the closing },
+      2. Paste it below the last product,
+      3. Give it a new id, name, price, category, and image path.
+
+      To hide a sold-out item:
+      Change inventory to 0. The button will show Sold Out.
+
+      Important before launch:
+      Review every price, description, inventory number, and image file name.
+    */
+    const PRODUCTS = [
+      {
+        id: "autumn-ember-leaf-drops",
+        name: "Autumn Ember Leaf Drops",
+        category: "Earrings",
+        collection: "Gold Glow",
+        price: 26,
+        inventory: 3,
+        badge: "New",
+        image: "images/autumn-ember-leaf-drops.jpg",
+        description: "Warm leaf-inspired drops with an easy, graceful shape for everyday sparkle."
+      },
+      {
+        id: "moonlight-magic-gilded-moon-drops",
+        name: "Moonlight Magic Gilded Moon Drops",
+        category: "Earrings",
+        collection: "Gold Glow",
+        price: 28,
+        inventory: 2,
+        badge: "Favorite",
+        image: "images/moonlight-magic-gilded-moon-drops.jpg",
+        description: "Celestial gold-tone earrings with a dreamy moonlit feel."
+      },
+      {
+        id: "petite-gold-crescent-hoops",
+        name: "Petite Gold Crescent Hoops",
+        category: "Earrings",
+        collection: "Gold Glow",
+        price: 22,
+        inventory: 4,
+        badge: "",
+        image: "images/petite-gold-crescent-hoops.jpg",
+        description: "Lightweight petite hoops that add polish without feeling overdone."
+      },
+      {
+        id: "sea-glass-pineapple-drops",
+        name: "Sea Glass Pineapple Drops",
+        category: "Earrings",
+        collection: "Coastal Sparkle",
+        price: 24,
+        inventory: 3,
+        badge: "Coastal",
+        image: "images/sea-glass-pineapple-drops.jpg",
+        description: "Playful pineapple drops with beachy color and cheerful texture."
+      },
+      {
+        id: "shoreline-sparkle-stars",
+        name: "Shoreline Sparkle Stars",
+        category: "Earrings",
+        collection: "Coastal Sparkle",
+        price: 25,
+        inventory: 3,
+        badge: "",
+        image: "images/shoreline-sparkle-stars.jpg",
+        description: "Star-inspired earrings made for summer evenings and coastal outfits."
+      },
+      {
+        id: "smoky-gold-kite-drops",
+        name: "Smoky Gold Kite Drops",
+        category: "Earrings",
+        collection: "Gold Glow",
+        price: 27,
+        inventory: 2,
+        badge: "",
+        image: "images/smoky-gold-kite-drops.jpg",
+        description: "A sleek kite silhouette with smoky depth and warm metallic detail."
+      },
+      {
+        id: "tidal-drift-kite-drops",
+        name: "Tidal Drift Kite Drops",
+        category: "Earrings",
+        collection: "Coastal Sparkle",
+        price: 27,
+        inventory: 2,
+        badge: "",
+        image: "images/tidal-drift-kite-drops.jpg",
+        description: "Ocean-toned kite drops with a soft, wearable statement shape."
+      },
+      {
+        id: "tide-pool-treasure-drops",
+        name: "Tide Pool Treasure Drops",
+        category: "Earrings",
+        collection: "Coastal Sparkle",
+        price: 26,
+        inventory: 3,
+        badge: "Giftable",
+        image: "images/tide-pool-treasure-drops.jpg",
+        description: "Textured coastal drops inspired by tide pools, shells, and sea glass."
+      },
+      {
+        id: "turquoise-stone-starfish-drops",
+        name: "Turquoise Stone Starfish Drops",
+        category: "Earrings",
+        collection: "Coastal Sparkle",
+        price: 29,
+        inventory: 2,
+        badge: "Coastal",
+        image: "images/turquoise-stone-starfish-drops.jpg",
+        description: "Turquoise color and starfish charm details for a bright beach-inspired look."
+      },
+      {
+        id: "twilight-kite-drops",
+        name: "Twilight Kite Drops",
+        category: "Earrings",
+        collection: "Giftable Finds",
+        price: 27,
+        inventory: 2,
+        badge: "",
+        image: "images/twilight-kite-drops.jpg",
+        description: "Elegant kite drops with deeper tones for dinner, events, or gifting."
+      },
+      {
+        id: "broken-wave-heart-drops",
+        name: "Broken Wave Heart Drops",
+        category: "Earrings",
+        collection: "Giftable Finds",
+        price: 25,
+        inventory: 3,
+        badge: "Giftable",
+        image: "images/broken-wave-heart-drops.jpg",
+        description: "Heart-shaped drops with a wave-like finish and sweet handmade character."
+      },
+      {
+        id: "violet-coral-pendant-necklace",
+        name: "Violet Coral Pendant Necklace",
+        category: "Necklaces",
+        collection: "Giftable Finds",
+        price: 34,
+        inventory: 2,
+        badge: "Necklace",
+        image: "images/violet-coral-pendant-necklace.jpg",
+        description: "A violet-toned pendant necklace with a soft coral-inspired feel."
+      }
+    ];
+
+    const state = {
+      cart: JSON.parse(localStorage.getItem("kcc-cart") || "[]"),
+      favorites: JSON.parse(localStorage.getItem("kcc-favorites") || "[]"),
+      search: "",
+      category: "all",
+      favoritesOnly: false,
+      paypalRendered: false
+    };
+
+    const productGrid = document.getElementById("productGrid");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const searchInput = document.getElementById("searchInput");
+    const cartToggle = document.getElementById("cartToggle");
+    const closeCart = document.getElementById("closeCart");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const drawerBackdrop = document.getElementById("drawerBackdrop");
+    const cartItems = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const favoritesToggle = document.getElementById("favoritesToggle");
+    const modal = document.getElementById("productModal");
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalContent = document.getElementById("modalContent");
+
+    function money(value) {
+      return new Intl.NumberFormat("en-US", { style: "currency", currency: CURRENCY }).format(value);
+    }
+
+    function saveState() {
+      localStorage.setItem("kcc-cart", JSON.stringify(state.cart));
+      localStorage.setItem("kcc-favorites", JSON.stringify(state.favorites));
+    }
+
+    function getProduct(id) {
+      return PRODUCTS.find(product => product.id === id);
+    }
+
+    function cartSubtotal() {
+      return state.cart.reduce((sum, item) => {
+        const product = getProduct(item.id);
+        return sum + (product ? product.price * item.qty : 0);
+      }, 0);
+    }
+
+    function shippingAmount() {
+      const subtotal = cartSubtotal();
+      if (!subtotal || subtotal >= FREE_SHIPPING_AT) return 0;
+      return STANDARD_SHIPPING;
+    }
+
+    function grandTotal() {
+      return cartSubtotal() + shippingAmount();
+    }
+
+    function currentProducts() {
+      const query = state.search.trim().toLowerCase();
+      return PRODUCTS.filter(product => {
+        const matchesCategory = state.category === "all" || product.category === state.category || product.collection === state.category;
+        const matchesFavorite = !state.favoritesOnly || state.favorites.includes(product.id);
+        const haystack = `${product.name} ${product.category} ${product.collection} ${product.description}`.toLowerCase();
+        return matchesCategory && matchesFavorite && haystack.includes(query);
+      });
+    }
+
+    function populateCategories() {
+      const options = [...new Set(PRODUCTS.flatMap(product => [product.category, product.collection]))];
+      options.forEach(option => {
+        const element = document.createElement("option");
+        element.value = option;
+        element.textContent = option;
+        categoryFilter.appendChild(element);
+      });
+    }
+
+    function renderProducts() {
+      const products = currentProducts();
+      if (!products.length) {
+        productGrid.innerHTML = '<div class="empty">No products match that search yet. Try another category or clear the search box.</div>';
+        return;
+      }
+      productGrid.innerHTML = products.map(product => {
+        const isFavorite = state.favorites.includes(product.id);
+        const soldOut = product.inventory <= 0;
+        return `
+          <article class="product-card">
+            <div class="photo" data-photo-label="Add photo: ${product.image}">
+              ${product.badge ? `<span class="badge">${product.badge}</span>` : ""}
+              <button class="favorite ${isFavorite ? "active" : ""}" type="button" data-action="favorite" data-id="${product.id}" aria-label="Save ${product.name} to favorites">${isFavorite ? "Saved" : "Save"}</button>
+              <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.parentElement.classList.add('missing-photo'); this.remove();">
+              <button class="photo-open" type="button" data-action="view" data-id="${product.id}" aria-label="View details for ${product.name}"></button>
+            </div>
+            <div class="product-body">
+              <div class="product-meta">${product.category} / ${product.collection}</div>
+              <h3 class="product-title">${product.name}</h3>
+              <p class="product-desc">${product.description}</p>
+              <div class="product-foot">
+                <div>
+                  <div class="price">${money(product.price)}</div>
+                  <div class="stock">${soldOut ? "Sold out" : `${product.inventory} available`}</div>
+                </div>
+                <button class="btn small ${soldOut ? "secondary" : "rose"}" type="button" data-action="add" data-id="${product.id}" ${soldOut ? "disabled" : ""}>${soldOut ? "Sold Out" : "Add"}</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function addToCart(id) {
+      const product = getProduct(id);
+      if (!product || product.inventory <= 0) return;
+      const existing = state.cart.find(item => item.id === id);
+      if (existing) {
+        if (existing.qty < product.inventory) existing.qty += 1;
+      } else {
+        state.cart.push({ id, qty: 1 });
+      }
+      state.paypalRendered = false;
+      saveState();
+      renderCart();
+      openCart();
+    }
+
+    function updateQty(id, change) {
+      const product = getProduct(id);
+      const line = state.cart.find(item => item.id === id);
+      if (!product || !line) return;
+      line.qty += change;
+      if (line.qty <= 0) state.cart = state.cart.filter(item => item.id !== id);
+      if (line.qty > product.inventory) line.qty = product.inventory;
+      state.paypalRendered = false;
+      saveState();
+      renderCart();
+    }
+
+    function toggleFavorite(id) {
+      if (state.favorites.includes(id)) {
+        state.favorites = state.favorites.filter(item => item !== id);
+      } else {
+        state.favorites.push(id);
+      }
+      saveState();
+      renderProducts();
+    }
+
+    function renderCart() {
+      const itemCount = state.cart.reduce((sum, item) => sum + item.qty, 0);
+      cartCount.textContent = itemCount;
+      document.getElementById("subtotalAmount").textContent = money(cartSubtotal());
+      document.getElementById("shippingAmount").textContent = shippingAmount() ? money(shippingAmount()) : "Free";
+      document.getElementById("grandTotalAmount").textContent = money(grandTotal());
+
+      if (!state.cart.length) {
+        cartItems.innerHTML = '<div class="empty">Your cart is empty. Add a few pieces and your PayPal checkout will appear here.</div>';
+        document.getElementById("paypal-button-container").innerHTML = "";
+        state.paypalRendered = false;
+        return;
+      }
+
+      cartItems.innerHTML = state.cart.map(item => {
+        const product = getProduct(item.id);
+        if (!product) return "";
+        return `
+          <div class="cart-line">
+            <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
+            <div>
+              <strong>${product.name}</strong>
+              <div class="stock">${money(product.price)} each</div>
+              <div class="qty" aria-label="Quantity controls for ${product.name}">
+                <button type="button" data-action="decrease" data-id="${product.id}">-</button>
+                <span>${item.qty}</span>
+                <button type="button" data-action="increase" data-id="${product.id}">+</button>
+              </div>
+            </div>
+            <div class="price">${money(product.price * item.qty)}</div>
+          </div>
+        `;
+      }).join("");
+
+      renderPayPalButtons();
+    }
+
+    function openCart() {
+      cartDrawer.classList.add("open");
+      drawerBackdrop.classList.add("open");
+      cartDrawer.setAttribute("aria-hidden", "false");
+      renderPayPalButtons();
+    }
+
+    function closeCartDrawer() {
+      cartDrawer.classList.remove("open");
+      drawerBackdrop.classList.remove("open");
+      cartDrawer.setAttribute("aria-hidden", "true");
+    }
+
+    function openModal(id) {
+      const product = getProduct(id);
+      if (!product) return;
+      modalContent.innerHTML = `
+        <div class="modal-photo"><img src="${product.image}" alt="${product.name}" onerror="this.parentElement.classList.add('missing-photo'); this.remove();"></div>
+        <div class="modal-body">
+          <div class="eyebrow">${product.category} / ${product.collection}</div>
+          <h2 class="section-title" style="font-size:2.35rem">${product.name}</h2>
+          <p class="section-copy">${product.description}</p>
+          <strong class="price">${money(product.price)}</strong>
+          <p class="fine-print">${product.inventory > 0 ? `${product.inventory} available` : "Sold out"}</p>
+          <button class="btn rose" type="button" data-action="add" data-id="${product.id}" ${product.inventory <= 0 ? "disabled" : ""}>Add to Cart</button>
+        </div>
+      `;
+      modal.classList.add("open");
+      modalBackdrop.classList.add("open");
+    }
+
+    function closeProductModal() {
+      modal.classList.remove("open");
+      modalBackdrop.classList.remove("open");
+    }
+
+    function paypalItems() {
+      return state.cart.map(item => {
+        const product = getProduct(item.id);
+        return {
+          name: product.name.substring(0, 127),
+          quantity: String(item.qty),
+          category: "PHYSICAL_GOODS",
+          unit_amount: {
+            currency_code: CURRENCY,
+            value: product.price.toFixed(2)
+          }
+        };
+      });
+    }
+
+    function loadPayPalScript() {
+      return new Promise((resolve, reject) => {
+        if (window.paypal) {
+          resolve();
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(PAYPAL_CLIENT_ID)}&currency=${CURRENCY}&intent=capture`;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function renderPayPalButtons() {
+      const container = document.getElementById("paypal-button-container");
+      if (!state.cart.length) return;
+      if (state.paypalRendered) return;
+      container.innerHTML = '<p class="checkout-note">Loading secure PayPal checkout...</p>';
+
+      try {
+        await loadPayPalScript();
+        container.innerHTML = "";
+        window.paypal.Buttons({
+          style: { layout: "vertical", color: "gold", shape: "rect", label: "paypal" },
+          createOrder: (data, actions) => {
+            const subtotal = cartSubtotal();
+            const shipping = shippingAmount();
+            const total = grandTotal();
+            return actions.order.create({
+              application_context: {
+                brand_name: STORE_NAME,
+                shipping_preference: "GET_FROM_FILE"
+              },
+              purchase_units: [{
+                description: `${STORE_NAME} jewelry order`,
+                amount: {
+                  currency_code: CURRENCY,
+                  value: total.toFixed(2),
+                  breakdown: {
+                    item_total: { currency_code: CURRENCY, value: subtotal.toFixed(2) },
+                    shipping: { currency_code: CURRENCY, value: shipping.toFixed(2) }
+                  }
+                },
+                items: paypalItems()
+              }]
+            });
+          },
+          onApprove: (data, actions) => {
+            return actions.order.capture().then(details => {
+              const firstName = details.payer && details.payer.name ? details.payer.name.given_name : "there";
+              alert(`Thank you, ${firstName}. Your order is complete.`);
+              state.cart = [];
+              state.paypalRendered = false;
+              saveState();
+              renderCart();
+              closeCartDrawer();
+            });
+          },
+          onError: error => {
+            console.error(error);
+            container.innerHTML = '<p class="checkout-note">PayPal could not load. Please refresh the page or contact Karen to complete your order.</p>';
+          }
+        }).render("#paypal-button-container");
+        state.paypalRendered = true;
+      } catch (error) {
+        console.error(error);
+        container.innerHTML = '<p class="checkout-note">PayPal checkout did not load. Check the PayPal Client ID and internet connection.</p>';
+      }
+    }
+
+    productGrid.addEventListener("click", event => {
+      const button = event.target.closest("[data-action]");
+      if (!button) return;
+      const action = button.dataset.action;
+      const id = button.dataset.id;
+      if (action === "add") addToCart(id);
+      if (action === "favorite") {
+        event.stopPropagation();
+        toggleFavorite(id);
+      }
+      if (action === "view") openModal(id);
+    });
+
+    cartItems.addEventListener("click", event => {
+      const button = event.target.closest("[data-action]");
+      if (!button) return;
+      if (button.dataset.action === "increase") updateQty(button.dataset.id, 1);
+      if (button.dataset.action === "decrease") updateQty(button.dataset.id, -1);
+    });
+
+    modalContent.addEventListener("click", event => {
+      const button = event.target.closest("[data-action='add']");
+      if (button) addToCart(button.dataset.id);
+    });
+
+    searchInput.addEventListener("input", event => {
+      state.search = event.target.value;
+      renderProducts();
+    });
+
+    categoryFilter.addEventListener("change", event => {
+      state.category = event.target.value;
+      renderProducts();
+    });
+
+    document.querySelectorAll("[data-collection]").forEach(link => {
+      link.addEventListener("click", () => {
+        state.category = link.dataset.collection;
+        categoryFilter.value = state.category;
+        renderProducts();
+      });
+    });
+
+    favoritesToggle.addEventListener("click", () => {
+      state.favoritesOnly = !state.favoritesOnly;
+      favoritesToggle.textContent = state.favoritesOnly ? "All" : "Fav";
+      favoritesToggle.setAttribute("aria-label", state.favoritesOnly ? "Show all products" : "Show favorites");
+      renderProducts();
+      document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+    });
+
+    cartToggle.addEventListener("click", openCart);
+    closeCart.addEventListener("click", closeCartDrawer);
+    drawerBackdrop.addEventListener("click", closeCartDrawer);
+    document.getElementById("closeModal").addEventListener("click", closeProductModal);
+    modalBackdrop.addEventListener("click", closeProductModal);
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeCartDrawer();
+        closeProductModal();
+      }
+    });
+
+    populateCategories();
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
